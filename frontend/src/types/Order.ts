@@ -11,7 +11,15 @@ type Order = {
         };
       };
     }
-    color_ring: JSON;
-    inox_ring: JSON;
+    color_ring: {
+      size: number;
+      price: number;
+      amount: number;
+    }[];
+    inox_ring: {
+      size: number;
+      price: number;
+      amount: number;
+    }[];
   }
 }

@@ -2,7 +2,7 @@
 import { GET_ORDERS } from "@/lib/queries/orders";
 import { useQuery } from "@apollo/client";
 
-export default function Page() {
+const Order = () => {
   const { data, loading, error } = useQuery(GET_ORDERS);
 
   if (loading) return <p>Loading...</p>;
@@ -28,3 +28,5 @@ export default function Page() {
     </>
   );
 }
+
+export default Order
