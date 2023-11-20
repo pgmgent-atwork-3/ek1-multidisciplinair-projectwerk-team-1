@@ -9,8 +9,7 @@
     "displayName": "User"
   },
   "options": {
-    "draftAndPublish": false,
-    "timestamps": true
+    "draftAndPublish": false
   },
   "attributes": {
     "username": {
@@ -71,6 +70,36 @@
       "relation": "oneToMany",
       "target": "api::order.order",
       "mappedBy": "user"
+    },
+    "stamNr": {
+      "type": "string"
+    },
+    "voornaam": {
+      "type": "string"
+    },
+    "achternaam": {
+      "type": "string"
+    },
+    "telefoon": {
+      "type": "string"
+    },
+    "gsm": {
+      "type": "string"
+    },
+    "land": {
+      "type": "string"
+    },
+    "postcode": {
+      "type": "string"
+    },
+    "gemeente": {
+      "type": "string"
+    },
+    "straat": {
+      "type": "string"
+    },
+    "huisNr": {
+      "type": "string"
     }
   }
 }
