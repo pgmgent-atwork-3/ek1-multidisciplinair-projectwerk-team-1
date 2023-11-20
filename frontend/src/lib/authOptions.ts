@@ -1,16 +1,11 @@
 import type { NextAuthOptions, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google"; // Import GoogleProvider
 import { LOGIN_MUTATION } from "@/lib/mutations/login";
 import { client } from "@/lib/apolloClient";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {

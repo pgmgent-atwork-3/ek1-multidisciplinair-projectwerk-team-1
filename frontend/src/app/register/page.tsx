@@ -7,9 +7,18 @@ import { useRouter } from 'next/navigation';
 
 const RegisterPage = () => {
     const [formData, setFormData] = useState({
-      username: '',
+      stamNr: '',
       email: '',
       password: '',
+      voornaam: '',
+      achternaam: '',
+      telefoon: '',
+      gsm: '',
+      land: '',
+      postcode: '',
+      gemeente: '',
+      straat: '',
+      huisnummer: '',
     });
     const { push } = useRouter();
     const [registerUser] = useMutation(REGISTER_USER);
@@ -23,7 +32,20 @@ const RegisterPage = () => {
       e.preventDefault();
       console.log(formData);
       try {
-        const { data } = await registerUser({ variables: { username: formData.username, email: formData.email, password: formData.password } });
+        const { data } = await registerUser({ variables: {
+           stamNr: formData.stamNr, 
+           email: formData.email, 
+           password: formData.password,
+           voornaam: formData.voornaam,
+            achternaam: formData.achternaam,
+            telefoon: formData.telefoon,
+            gsm: formData.gsm,
+            land: formData.land,
+            postcode: formData.postcode,
+            gemeente: formData.gemeente,
+            straat: formData.straat,
+            huisnummer: formData.huisnummer,
+          } });
         if (data && data.register.user) {
             // Handle successful registration here
             push('/');
@@ -47,9 +69,9 @@ const RegisterPage = () => {
             <p>{errors}</p>
             <input
               type="text"
-              name="username"
-              placeholder="Username"
-              value={formData.username}
+              name="stamNr"
+              placeholder="stamNr"
+              value={formData.stamNr}
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
             />
@@ -74,6 +96,96 @@ const RegisterPage = () => {
               className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
             />
           </div>
+          <div className="mb-4">
+            <input
+              type="text"
+              name="voornaam"
+              placeholder="Voornaam"
+              value={formData.voornaam}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="text"
+              name="achternaam"
+              placeholder="Achternaam"
+              value={formData.achternaam}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="text"
+              name="telefoon"
+              placeholder="Telefoon"
+              value={formData.telefoon}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="text"
+              name="gsm"
+              placeholder="Gsm"
+              value={formData.gsm}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="text"
+              name="land"
+              placeholder="Land"
+              value={formData.land}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="text"
+              name="postcode"
+              placeholder="Postcode"
+              value={formData.postcode}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+            />
+          </div>
+          <div className='mb-4'>
+            <input
+              type="text"
+              name="gemeente"
+              placeholder="Gemeente"
+              value={formData.gemeente}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+              />
+          </div>
+          <div className="mb-4">
+            <input
+              type="text"
+              name="straat"
+              placeholder="Straat"
+              value={formData.straat}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+              />  
+          </div>
+          <div className="mb-4">
+            <input
+              type="text"
+              name="huisnummer"
+              placeholder="Huisnummer"
+              value={formData.huisnummer}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"/>
+          </div>
+          
           <div>
             <button
               type="submit"
