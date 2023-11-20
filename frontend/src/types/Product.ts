@@ -10,15 +10,15 @@ type Product = {
         };
       };
     };
-      amountAvailable: number;
-      owner: {
-        data: {
-          id: string;
-          attributes: {
-            username: string;
-          };
+    amountAvailable: number;
+    owner: {
+      data: {
+        id: string;
+        attributes: {
+          username: string;
         };
       };
+    };
     name: string;
     available: boolean;
   };
