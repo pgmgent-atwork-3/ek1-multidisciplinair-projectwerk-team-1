@@ -3,7 +3,6 @@ import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import { REGISTER_USER, UPDATE_USER } from "@/lib/mutations/login";
 import { useRouter } from "next/navigation";
-import { clear } from "console";
 import Image from "next/image";
 
 const RegisterPage = () => {
