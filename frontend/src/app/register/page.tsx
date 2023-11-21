@@ -1,7 +1,7 @@
 "use client";
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
-import { REGISTER_USER } from "@/lib/mutations/login";
+import { REGISTER_USER, UPDATE_USER } from "@/lib/mutations/login";
 import { useRouter } from "next/navigation";
 import { clear } from "console";
 
@@ -22,7 +22,10 @@ const RegisterPage = () => {
   });
   const { push } = useRouter();
   const [registerUser] = useMutation(REGISTER_USER);
+  const [updateUser] = useMutation(UPDATE_USER);
   const [errors, setErrors] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     console.log(value.length);
@@ -38,11 +41,9 @@ const RegisterPage = () => {
         alert(
           "Stamnummer moet beginnen met de eerste letter van de achternaam"
         );
-      } else{
+      } else {
         setFormData({ ...formData, [name]: value });
       }
-        
-      
     }
     if (name !== "stamNr" || value.length <= 2) {
       setFormData({ ...formData, [name]: value });
@@ -51,38 +52,60 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+    setErrors("");
+    setEmailError("");
+    setPasswordError("");
     if (formData.stamNr.length < 5) {
       alert("Stamnummer moet minstens 5 cijfers bevatten");
     } else {
+      let registerData;
       try {
-        const { data } = await registerUser({
+        registerData = await registerUser({
           variables: {
-            stamNr: formData.stamNr,
+            username: formData.email,
             email: formData.email,
             password: formData.password,
-            voornaam: formData.voornaam,
-            achternaam: formData.achternaam,
-            telefoon: formData.telefoon,
-            gsm: formData.gsm,
-            land: formData.land,
-            postcode: formData.postcode,
-            gemeente: formData.gemeente,
-            straat: formData.straat,
-            huisnummer: formData.huisnummer,
           },
         });
-        if (data && data.register.user) {
-          // Handle successful registration here
-          push("/");
-          console.log("registration successful");
-        } else {
-          // Handle registration errors here
-          push("/register");
-        }
       } catch (error) {
-        console.error(error);
-        if (error instanceof Error) setErrors(error.message);
+        if (error instanceof Error){
+          if(error.message.includes("Email")){
+            setEmailError(error.message);
+          }else if(error.message.includes("password")){
+            setPasswordError(error.message);
+          }
+      }
+    }
+      if (registerData?.data.register.user.id) {
+        try {
+          const { data } = await updateUser({
+            variables: {
+              id: registerData.data.register.user.id,
+              stamNr: formData.stamNr,
+              voornaam: formData.voornaam,
+              achternaam: formData.achternaam,
+              telefoon: formData.telefoon,
+              gsm: formData.gsm,
+              land: formData.land,
+              postcode: formData.postcode,
+              gemeente: formData.gemeente,
+              straat: formData.straat,
+              huisnummer: formData.huisnummer,
+            },
+          });
+          if (data && data.register) {
+            // Handle successful registration here
+            push("/");
+            console.log("registration successful");
+          } else {
+            // Handle registration errors here
+            push("/register");
+          }
+        } catch (error) {
+          if(!emailError || !passwordError){
+            if (error instanceof Error) setErrors(error.message);
+          }
+        }
       }
     }
   };
@@ -91,7 +114,8 @@ const RegisterPage = () => {
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-3xl font-semibold mb-4">Register</h1>
       <form className="w-full max-w-sm" onSubmit={handleSubmit}>
-        <div className="mb-4">
+        {errors && <p className="text-red-500">{errors}</p>}
+        <div className="mb-4 flex">
           <input
             type="text"
             name="voornaam"
@@ -101,8 +125,12 @@ const RegisterPage = () => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}${attributes.attributes.url}`}
+            >
+         
         </div>
-        <div className="mb-4">
+        <div className="mb-4 flex">
           <input
             type="text"
             name="achternaam"
@@ -113,7 +141,8 @@ const RegisterPage = () => {
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
         </div>
-        <div className="mb-4">
+        {emailError && <p className="text-red-500">{emailError}</p>}
+        <div className="mb-4 flex">
           <input
             type="email"
             name="email"
@@ -124,7 +153,8 @@ const RegisterPage = () => {
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
         </div>
-        <div className="mb-4">
+        {passwordError && <p className="text-red-500">{passwordError}</p>}
+        <div className="mb-4 flex">
           <input
             type="password"
             name="password"
@@ -135,7 +165,7 @@ const RegisterPage = () => {
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 flex">
           <input
             type="text"
             name="stamNr"
@@ -148,7 +178,7 @@ const RegisterPage = () => {
         </div>
         <div className="mb-4">
           <input
-            type="text"
+            type="number"
             name="telefoon"
             placeholder="Telefoon"
             value={formData.telefoon}
@@ -158,7 +188,7 @@ const RegisterPage = () => {
         </div>
         <div className="mb-4">
           <input
-            type="text"
+            type="number"
             name="gsm"
             placeholder="Gsm"
             value={formData.gsm}
@@ -166,55 +196,61 @@ const RegisterPage = () => {
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 flex">
           <input
             type="text"
             name="land"
+            required
             placeholder="Land"
             value={formData.land}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 flex">
           <input
-            type="text"
+            type="number"
             name="postcode"
+            required
             placeholder="Postcode"
             value={formData.postcode}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 flex">
           <input
             type="text"
             name="gemeente"
+            required
             placeholder="Gemeente"
             value={formData.gemeente}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 flex">
           <input
             type="text"
             name="straat"
+            required
             placeholder="Straat"
             value={formData.straat}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 flex">
           <input
-            type="text"
+            type="number"
             name="huisnummer"
+            required
             placeholder="Huisnummer"
             value={formData.huisnummer}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
+          
         </div>
 
         <div>
