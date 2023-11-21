@@ -4,6 +4,7 @@ import { useState } from "react";
 import { REGISTER_USER, UPDATE_USER } from "@/lib/mutations/login";
 import { useRouter } from "next/navigation";
 import { clear } from "console";
+import Image from "next/image";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -126,8 +127,12 @@ const RegisterPage = () => {
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
           <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}${attributes.attributes.url}`}
-            >
+            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
+            alt="required"
+            width={111}
+            height={80}
+            className="h-10 w-auto"
+          />
          
         </div>
         <div className="mb-4 flex">
@@ -139,6 +144,13 @@ const RegisterPage = () => {
             value={formData.achternaam}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+          />
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
+            alt="required"
+            width={111}
+            height={80}
+            className="h-10 w-auto"
           />
         </div>
         {emailError && <p className="text-red-500">{emailError}</p>}
@@ -152,6 +164,13 @@ const RegisterPage = () => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
+            alt="required"
+            width={111}
+            height={80}
+            className="h-10 w-auto"
+          />
         </div>
         {passwordError && <p className="text-red-500">{passwordError}</p>}
         <div className="mb-4 flex">
@@ -164,6 +183,13 @@ const RegisterPage = () => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
+            alt="required"
+            width={111}
+            height={80}
+            className="h-10 w-auto"
+          />
         </div>
         <div className="mb-4 flex">
           <input
@@ -175,27 +201,15 @@ const RegisterPage = () => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
-        </div>
-        <div className="mb-4">
-          <input
-            type="number"
-            name="telefoon"
-            placeholder="Telefoon"
-            value={formData.telefoon}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
+            alt="required"
+            width={111}
+            height={80}
+            className="h-10 w-auto"
           />
         </div>
-        <div className="mb-4">
-          <input
-            type="number"
-            name="gsm"
-            placeholder="Gsm"
-            value={formData.gsm}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
-          />
-        </div>
+        
         <div className="mb-4 flex">
           <input
             type="text"
@@ -205,6 +219,13 @@ const RegisterPage = () => {
             value={formData.land}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+          />
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
+            alt="required"
+            width={111}
+            height={80}
+            className="h-10 w-auto"
           />
         </div>
         <div className="mb-4 flex">
@@ -217,6 +238,13 @@ const RegisterPage = () => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
+            alt="required"
+            width={111}
+            height={80}
+            className="h-10 w-auto"
+          />
         </div>
         <div className="mb-4 flex">
           <input
@@ -227,6 +255,13 @@ const RegisterPage = () => {
             value={formData.gemeente}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+          />
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
+            alt="required"
+            width={111}
+            height={80}
+            className="h-10 w-auto"
           />
         </div>
         <div className="mb-4 flex">
@@ -239,6 +274,13 @@ const RegisterPage = () => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
+            alt="required"
+            width={111}
+            height={80}
+            className="h-10 w-auto"
+          />
         </div>
         <div className="mb-4 flex">
           <input
@@ -250,9 +292,36 @@ const RegisterPage = () => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
-          
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
+            alt="required"
+            width={111}
+            height={80}
+            className="h-10 w-auto"
+          />
         </div>
-
+        <div className="mb-4">
+          <input
+            type="number"
+            name="telefoon"
+            placeholder="Telefoon"
+            value={formData.telefoon}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+            style={{ maxWidth: "332px" }}
+          />
+        </div>
+        <div className="mb-4">
+          <input
+            type="number"
+            name="gsm"
+            placeholder="Gsm"
+            value={formData.gsm}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+            style={{ maxWidth: "332px" }}
+          />
+        </div>
         <div>
           <button
             type="submit"
