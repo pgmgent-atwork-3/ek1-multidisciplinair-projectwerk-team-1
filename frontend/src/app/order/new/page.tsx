@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import LoadColorRings from "@/app/api/api";
 
 const NewOrder = () => {
-  const [order, setOrder] = useState({ price: 0 , userId: "", colorRing: [], inoxRing: [] });
-  const [colorRings, setColorRings] = useState<Ring[]>([]);
+  const [order, setOrder] = useState<{price: number, userId: string, colorRing: Rings, inoxRing: Rings}>({ price: 0 , userId: "", colorRing: [], inoxRing: [] });
+  const [colorRings, setColorRings] = useState<Rings>([]);
   const [createOrder, createOrderState] = useMutation(CREATE_ORDER);
 
   useEffect(() => {
@@ -33,14 +33,20 @@ const NewOrder = () => {
     }
   }
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const addColorRing = () => {
+    
+  }
+
+  const handleSubmit = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(order);
     createOrder({
       variables: {
-        price: order.price,
-        userId: order.userId,
-        colorRing: order.colorRing,
-        inoxRing: order.inoxRing,
+        data: {
+          price: order.price,
+          user: order.userId,
+          color_ring: order.colorRing,
+          inox_ring: order.inoxRing,
+        }
       }
     })
   };
@@ -71,20 +77,22 @@ const NewOrder = () => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-          {colorRings.map((ring: Ring) => (
-          <div className="flex mb-4" key={ring.size}>
-            <div className="mr-4">
+        <div>
+          {order.colorRing.map((ring: Ring) => (
+            <div key={ring.size}  className="flex mb-4">
+              <div className="mr-4">
               <label htmlFor="size" className="block mb-2 font-medium">Size</label>
-              <input
-              type="number"
+              <select
               id="size"
               name="size"
-              value={ring.size}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              disabled
-              />
-            </div>
-            <div className="mr-4">
+              >
+                {colorRings.map((ring: Ring) => (
+                  <option key={ring.size} value={ring.size}>{ring.size}</option>
+                  ))}
+              </select>
+              </div>
+              <div className="mr-4">
               <label htmlFor="price" className="block mb-2 font-medium">Price per ring</label>
               <input
               type="number"
@@ -95,20 +103,59 @@ const NewOrder = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               disabled
               />
+              </div>
+              <div className="mr-4 w-fit">
+              <label htmlFor="amount" className="block mb-2 font-medium">Amount</label>
+              <input
+              type="number"
+              id="amount"
+              name="amount"
+              onChange={handleRingChange}
+              value={ring.amount}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              </div>
+            </div>
+          ))}
+          </div>
+          <div className="flex mb-4">
+          <div className="mr-4 w-full">
+              <label htmlFor="size" className="block mb-2 font-medium">Size</label>
+              <select
+              id="size"
+              name="size"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                {colorRings.map((ring: Ring) => (
+                  <option key={ring.size} value={ring.size}>{ring.size}</option>
+                  ))}
+              </select>
+              </div>
+            <div className="mr-4">
+              <label htmlFor="price" className="block mb-2 font-medium">Price per ring</label>
+              <input
+              type="number"
+              id="price"
+              name="price"
+              step={0.05}
+              value={0.5}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled
+              />
             </div>
             <div className="mr-4">
               <label htmlFor="amount" className="block mb-2 font-medium">Amount</label>
               <input
               type="number"
               id="amount"
-              name={(ring.size).toString()}
+              name="amount"
+              step={1}
               onChange={handleRingChange}
-              value={ring.amount}
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
+            <button type="button" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={addColorRing}>Add Ring</button>
         </div>
-        ))}
         <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={handleSubmit}>Submit</button>
       </form>
     </>

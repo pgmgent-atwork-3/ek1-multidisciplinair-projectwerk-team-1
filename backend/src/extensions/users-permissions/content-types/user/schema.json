@@ -65,11 +65,6 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "orders": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::order.order"
-    },
     "stamNr": {
       "type": "string"
     },
@@ -99,6 +94,12 @@
     },
     "huisNr": {
       "type": "string"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "user"
     }
   }
 }
