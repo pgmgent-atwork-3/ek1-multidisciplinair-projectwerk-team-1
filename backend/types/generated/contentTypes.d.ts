@@ -376,11 +376,6 @@ export interface ApiOrderOrder extends Schema.CollectionType {
   attributes: {
     color_ring: Attribute.JSON;
     inox_ring: Attribute.JSON;
-    user: Attribute.Relation<
-      'api::order.order',
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
     price: Attribute.Decimal;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

@@ -68,8 +68,7 @@
     "orders": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::order.order",
-      "mappedBy": "user"
+      "target": "api::order.order"
     },
     "stamNr": {
       "type": "string"
