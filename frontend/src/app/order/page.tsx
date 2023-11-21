@@ -8,9 +8,6 @@ const Order = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
   if (!data) return <p>No data</p>;
-
-  console.log(data.orders.data[0].attributes.color_ring);
-
   return (
     <>
       {data.orders.data.map((item: Order) => (

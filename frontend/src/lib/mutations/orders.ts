@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_ORDER = gql`
-  mutation CreateOrder($input: CreateOrderInput!) {
-    createOrder(input: $input) {
+  mutation CreateOrder($variables: OrderInput!) {
+    createOrder(data: $variables) {
       data {
         id
         attributes {
@@ -10,9 +10,6 @@ export const CREATE_ORDER = gql`
           user {
             data {
               id
-              attributes {
-                username
-              }
             }
           }
           color_ring

@@ -3,3 +3,5 @@ type Ring = {
   price: number;
   amount: number;
 }
+
+type Rings = Ring[];
