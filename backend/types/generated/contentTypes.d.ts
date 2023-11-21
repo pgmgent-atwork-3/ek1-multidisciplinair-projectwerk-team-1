@@ -377,6 +377,11 @@ export interface ApiOrderOrder extends Schema.CollectionType {
     color_ring: Attribute.JSON;
     inox_ring: Attribute.JSON;
     price: Attribute.Decimal;
+    user: Attribute.Relation<
+      'api::order.order',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -691,11 +696,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    orders: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::order.order'
-    >;
     stamNr: Attribute.String;
     voornaam: Attribute.String;
     achternaam: Attribute.String;
@@ -706,6 +706,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     gemeente: Attribute.String;
     straat: Attribute.String;
     huisNr: Attribute.String;
+    orders: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::order.order'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

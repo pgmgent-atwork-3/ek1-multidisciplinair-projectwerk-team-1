@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_ORDER = gql`
-  mutation CreateOrder($variables: OrderInput!) {
-    createOrder(data: $variables) {
+  mutation CreateOrder($data: OrderInput!) {
+    createOrder(data: $data) {
       data {
         id
         attributes {
