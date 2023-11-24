@@ -10,7 +10,7 @@ export default async function loadColorRings(): Promise<any> {
   return data;  
 }
 
-export const fetchUser = async (user: any) => {
+export const fetchUser = async (user: User) => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/graphql`;
   console.log(user);
   const query = `
@@ -113,3 +113,28 @@ export const updateUser = async (user: UserUpdate) => {
     return null;
   }
 }
+
+export const deleteUser = async ({id}:{id : number} ) => {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/graphql`;
+  const query = `
+  mutation {
+    deleteUsersPermissionsUser(id: "${id}") {
+      data {
+        id
+        attributes {
+          email
+          username
+        }
+      }
+    }
+  }
+  `;
+  console.log(query);
+  try {
+    const response = await axios.post(url, { query });
+    return response.data.data.deleteUsersPermissionsUser.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
