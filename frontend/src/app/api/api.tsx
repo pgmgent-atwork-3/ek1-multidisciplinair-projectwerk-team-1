@@ -21,10 +21,22 @@ export const fetchUser = async (user: any) => {
         attributes {
           username
           email
+          stamNr
+          email
+          voornaam
+          achternaam
+          telefoon
+          gsm
+          land
+          postcode
+          gemeente
+          straat
+          huisNr
           role{
             data{
               attributes{
                 name
+
               }
             }
           }
@@ -68,3 +80,36 @@ export const fetchAllUsers = async () => {
     return null;
   }
 };
+
+export const updateUser = async (user: UserUpdate) => {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/graphql`;
+  const query = `
+  mutation{
+    updateUsersPermissionsUser(id: ${user.id}, data:{username: "${user.email}", email: "${user.email}", stamNr: "${user.stamNr}", voornaam: "${user.voornaam}", achternaam: "${user.achternaam}", telefoon: "${user.telefoon}", gsm: "${user.gsm}", land: "${user.land}", postcode: "${user.postcode}", gemeente: "${user.gemeente}", straat: "${user.straat}", huisNr: "${user.huisnummer}"}){
+      data{
+        id
+        attributes{
+          stamNr
+          email
+          voornaam
+          achternaam
+          telefoon
+          gsm
+          land
+          postcode
+          gemeente
+          straat
+          huisNr
+        }
+      }
+    }
+  }`;
+  console.log(query);
+  try {
+    const response = await axios.post(url, { query });
+    return response.data.data.updateUsersPermissionsUser.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}

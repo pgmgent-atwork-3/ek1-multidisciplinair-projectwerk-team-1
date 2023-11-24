@@ -10,10 +10,8 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@creazy231/strapi-plugin-apollo-sandbox": "^0.0.13",
     "@strapi/plugin-cloud": "4.15.4",
     "@strapi/plugin-graphql": "^4.15.4",
-    "@strapi/plugin-i18n": "4.15.4",
     "@strapi/plugin-users-permissions": "4.15.4",
     "@strapi/strapi": "4.15.4",
     "better-sqlite3": "8.6.0",
