@@ -134,6 +134,7 @@ const Rings = () => {
         <ul className="flex justify between flex-col">
           {colorRings.map((ring, index) => (
             <li key={ring.size} className="flex items-center justify-between py-2 px-4">
+              <label htmlFor="size">Size</label>
               <input
                 type="number"
                 className="border-2 border-gray-400 rounded-md px-2 py-1"
@@ -143,6 +144,7 @@ const Rings = () => {
                 onChange={(event) => handleChangeColor(index, event)}
                 disabled={!editingColor}
               />
+              <label htmlFor="price">Price</label>
               <input
                 type="number"
                 className="border-2 border-gray-400 rounded-md px-2 py-1"
@@ -173,6 +175,7 @@ const Rings = () => {
         <ul className="flex justify between flex-col">
           {inoxRings.map((ring, index) => (
             <li key={ring.size} className="flex items-center justify-between py-2 px-4">
+              <label htmlFor="size">Size</label>
               <input
                 type="number"
                 className="border-2 border-gray-400 rounded-md px-2 py-1"
@@ -182,6 +185,7 @@ const Rings = () => {
                 onChange={(event) => handleChangeInox(index, event)}
                 disabled={!editingInox}
               />
+              <label htmlFor="price">Price</label>
               <input
                 type="number"
                 className="border-2 border-gray-400 rounded-md px-2 py-1"
