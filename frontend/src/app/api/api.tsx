@@ -85,7 +85,10 @@ export const updateUser = async (user: UserUpdate) => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/graphql`;
   const query = `
   mutation{
-    updateUsersPermissionsUser(id: ${user.id}, data:{username: "${user.email}", email: "${user.email}", stamNr: "${user.stamNr}", voornaam: "${user.voornaam}", achternaam: "${user.achternaam}", telefoon: "${user.telefoon}", gsm: "${user.gsm}", land: "${user.land}", postcode: "${user.postcode}", gemeente: "${user.gemeente}", straat: "${user.straat}", huisNr: "${user.huisnummer}"}){
+    updateUsersPermissionsUser(
+      id: ${user.id}, 
+      data:{
+        username: "${user.email}", email: "${user.email}", stamNr: "${user.stamNr}", voornaam: "${user.voornaam}", achternaam: "${user.achternaam}", telefoon: "${user.telefoon}", gsm: "${user.gsm}", land: "${user.land}", postcode: "${user.postcode}", gemeente: "${user.gemeente}", straat: "${user.straat}", huisNr: "${user.huisnummer}"}){
       data{
         id
         attributes{
@@ -138,3 +141,34 @@ export const deleteUser = async ({id}:{id : number} ) => {
     return null;
   }
 };
+
+export const createOrder = async (order: OrderQuery) => {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/graphql`;
+  const colorRingString = JSON.stringify(order.color_ring).replace(/"/g, '');
+  const inoxRingString = JSON.stringify(order.inox_ring).replace(/"/g, '');
+  const query = `
+    mutation {
+      createOrder(data: { color_ring: ${colorRingString}, user: ${order.user}, price: ${order.totaal}, inox_ring: ${inoxRingString} }) {
+        data {
+          id
+          attributes {
+            price
+            user {
+              data {
+                id
+              }
+            }
+          }
+        }
+      }
+    }     
+`;
+console.log(query);
+  try {
+    const response = await axios.post(url, { query });
+    return response.data.data.createOrder.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}

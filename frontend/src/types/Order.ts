@@ -23,3 +23,7 @@ type Order = {
     }[];
   }
 }
+
+type OrderQuery = {
+  
+}
