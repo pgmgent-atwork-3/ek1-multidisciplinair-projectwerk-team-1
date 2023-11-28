@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "year_colors",
+  "info": {
+    "singularName": "year-color",
+    "pluralName": "year-colors",
+    "displayName": "Year color",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "year": {
+      "type": "integer",
+      "required": true,
+      "unique": true
+    },
+    "color": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
