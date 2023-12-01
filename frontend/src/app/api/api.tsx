@@ -162,11 +162,12 @@ export const createOrder = async (order: OrderQuery) => {
   const inoxRingString = JSON.stringify(order.inox_ring).replace(/"/g, '');
   const query = `
     mutation {
-      createOrder(data: { color_ring: ${colorRingString}, user: ${order.user}, price: ${order.totaal}, inox_ring: ${inoxRingString} }) {
+      createOrder(data: { color_ring: ${colorRingString}, user: ${order.user}, price: ${order.totaal}, inox_ring: ${inoxRingString}, year: "${order.year}" }) {
         data {
           id
           attributes {
             price
+            year
             user {
               data {
                 id
