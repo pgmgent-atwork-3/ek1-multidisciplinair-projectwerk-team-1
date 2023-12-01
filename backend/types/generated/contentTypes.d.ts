@@ -399,6 +399,37 @@ export interface ApiOrderOrder extends Schema.CollectionType {
   };
 }
 
+export interface ApiYearColorYearColor extends Schema.CollectionType {
+  collectionName: 'year_colors';
+  info: {
+    singularName: 'year-color';
+    pluralName: 'year-colors';
+    displayName: 'Year color';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    year: Attribute.Integer & Attribute.Required & Attribute.Unique;
+    color: Attribute.String & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::year-color.year-color',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::year-color.year-color',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -695,6 +726,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::order.order': ApiOrderOrder;
+      'api::year-color.year-color': ApiYearColorYearColor;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
