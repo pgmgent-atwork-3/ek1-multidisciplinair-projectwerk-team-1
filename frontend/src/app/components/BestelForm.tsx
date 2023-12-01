@@ -188,7 +188,7 @@ const BestelForm = (data) => {
     totaalRingenCollorArray.forEach((ring) => {
       ringenAantalCollor += ring;
     });
-    if (ringenAantalCollor < 10) {
+    if (ringenAantalCollor < 10 && ringenAantalCollor !== 0) {
       alert("Minimaal 10 ringen bestellen");
       return;
     }
@@ -212,15 +212,15 @@ const BestelForm = (data) => {
       year: selectedJaar,
     };
     console.log(userBestelling);
-    createOrder(userBestelling);
-    //.then((data) => {
-    //if (data === null) {
-    //  alert("Er is iets fout gegaan");
-    //  return;
-    // }
-    // alert("Bestelling is geplaatst");
-    // window.location.reload();
-    //});
+    createOrder(userBestelling)
+    .then((data) => {
+    if (data === null) {
+      alert("Er is iets fout gegaan");
+      return;
+     }
+     alert("Bestelling is geplaatst");
+     window.location.reload();
+    });
   };
 
   return (
