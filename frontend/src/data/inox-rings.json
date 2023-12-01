@@ -1,47 +1,68 @@
 [
   {
+    "id": 0,
     "size": 6.0,
-    "price": 3.60,
+    "price": 3.6,
     "amount": 0
-  },{
+  },
+  {
+    "id": 1,
     "size": 7.0,
-    "price": 3.60,
+    "price": 3.6,
     "amount": 0
-  },{
+  },
+  {
+    "id": 2,
     "size": 8.0,
-    "price": 3.60,
+    "price": 3.6,
     "amount": 0
-  },{
+  },
+  {
+    "id": 3,
     "size": 9.0,
-    "price": 3.60,
+    "price": 3.6,
     "amount": 0
-  },{
+  },
+  {
+    "id": 4,
     "size": 10.0,
-    "price": 3.60,
+    "price": 3.6,
     "amount": 0
-  },{
+  },
+  {
+    "id": 5,
     "size": 11.0,
-    "price": 3.80,
+    "price": 3.8,
     "amount": 0
-  },{
+  },
+  {
+    "id": 6,
     "size": 12.0,
-    "price": 3.80,
+    "price": 3.8,
     "amount": 0
-  },{
+  },
+  {
+    "id": 7,
     "size": 13.0,
-    "price": 3.80,
+    "price": 3.8,
     "amount": 0
-  },{
+  },
+  {
+    "id": 8,
     "size": 14.0,
-    "price": 3.80,
+    "price": 3.8,
     "amount": 0
-  },{
+  },
+  {
+    "id": 9,
     "size": 16.0,
-    "price": 3.80,
+    "price": 3.8,
     "amount": 0
-  },{
+  },
+  {
+    "id": 10,
     "size": 18.0,
-    "price": 3.80,
+    "price": 3.8,
     "amount": 0
   }
 ]

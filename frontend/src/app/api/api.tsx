@@ -3,18 +3,14 @@ import { promises as fs } from 'fs';
 import axios from 'axios';
 
 export async function loadColorRings(): Promise<Rings> {
-  //Read the json data file data.json
   const res = await fs.readFile(process.cwd() + '/src/data/color-rings.json', 'utf8');
   const data: Rings = JSON.parse(res.toString());
-  //Return the content of the data file in json format
   return data;  
 }
 
 export async function loadInoxRings(): Promise<Rings> {
-  //Read the json data file data.json
   const res = await fs.readFile(process.cwd() + '/src/data/inox-rings.json', 'utf8');
   const data: Rings = JSON.parse(res.toString());
-  //Return the content of the data file in json format
   return data;  
 }
 
