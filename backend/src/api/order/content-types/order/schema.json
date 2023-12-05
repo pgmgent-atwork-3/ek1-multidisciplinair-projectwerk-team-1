@@ -29,6 +29,12 @@
     },
     "year": {
       "type": "string"
+    },
+    "paid": {
+      "type": "boolean"
+    },
+    "processed": {
+      "type": "boolean"
     }
   }
 }

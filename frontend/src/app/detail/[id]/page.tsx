@@ -70,6 +70,16 @@ const page = async ({ params }: { params: { id: number } }) => {
           Wijzig
         </a>
       </div>
+      <div>
+        <a 
+        className="bg-blue-500 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded mt-4 block"
+        href={`/bestelling/${user.id}`}>Bestelling toevoegen</a>
+      </div>
+      <div>
+        <a 
+        className="bg-blue-500 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded mt-4 block"
+        href={`/orderoverzicht/${user.id}`}>Bestellingen bekijken</a>
+      </div>
     </div>
   );
 };

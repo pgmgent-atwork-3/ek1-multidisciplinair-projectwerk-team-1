@@ -383,6 +383,8 @@ export interface ApiOrderOrder extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     year: Attribute.String;
+    paid: Attribute.Boolean;
+    processed: Attribute.Boolean;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
