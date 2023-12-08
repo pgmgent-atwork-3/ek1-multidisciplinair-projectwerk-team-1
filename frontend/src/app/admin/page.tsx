@@ -22,8 +22,14 @@ const Admin = async () => {
 
   return (
     <>
+    <h2>Verkoop</h2>
+      <div className="flex justify-center items-center mt-16">
+      <a href="/orderfinalizing" className="bg-green-500 hover:bg-green-600 text-white text-center font-bold py-2 px-4 rounded">
+        Maand verkoop
+      </a>
+    </div>
       <h2 className="text-4xl mt-4 ml-4">Users</h2>
-      <div className="">
+      <div>
         <div className="p-4 shadow-md rounded-lg bg-blue-100 mt-5 grid grid-cols-7 gap-4 ml-6 mr-6">
           <p className="text-lg font-semibold">Stamnummer</p>
           <p className="text-lg font-semibold">Voornaam</p>

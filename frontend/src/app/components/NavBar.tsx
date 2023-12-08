@@ -11,10 +11,7 @@ export default async function Navbar() {
       <nav className="bg-gradient-to-r from-blue-900 via-indigo-800 to-violet-700 p-4">
         <ul className="flex justify-evenly text-2xl font-bold text-white">
           <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/user">Update user</Link>
+            <Link href={`/bestelling/${session.id}`}>Bestellen</Link>
           </li>
           {isAdmin && (
             <li>
@@ -39,7 +36,6 @@ export default async function Navbar() {
   }
   
   const activeUser = await fetchUser(session.id);
-  console.log(activeUser);
   if (activeUser?.attributes.role?.data.attributes.name == "admin") {
     isAdmin = true;
   }
@@ -49,10 +45,7 @@ export default async function Navbar() {
     <nav className="bg-gradient-to-r from-blue-900 via-indigo-800 to-violet-700 p-4">
       <ul className="flex justify-evenly text-2xl font-bold text-white">
         <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>
-          <Link href="/user">Update user</Link>
+          <Link href={`/bestellingen/${session.id}`}>Bestellen</Link>
         </li>
         {isAdmin && (
           <li>

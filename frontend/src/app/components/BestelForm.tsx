@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createOrder } from "../api/api";
 
 const BestelForm = (data) => {
@@ -7,7 +7,8 @@ const BestelForm = (data) => {
   const collorRings = data.collorRing;
   const inoxRings = data.inoxRing;
   //jaar select
-  const [selectedJaar, setSelectedJaar] = useState("select");
+  const [currentDate, setCurrentDate] = useState(null);
+  const [selectedJaar, setSelectedJaar] = useState("");
 
   //collor rings
   const [prijsCollor, setPrijsCollor] = useState([]);
@@ -27,6 +28,32 @@ const BestelForm = (data) => {
   const [inoxRingsData, setInoxRingsData] = useState([]);
   const [totalRingCheck, setTotalRingCheck] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    // Haal de huidige datum en tijd op
+    const now = new Date();
+
+    // Haal dag, maand en jaar op
+    const day = now.getDate();
+    const month = now.getMonth() + 1; // Maanden beginnen bij 0, voeg 1 toe voor de werkelijke maand
+    const year = now.getFullYear();
+
+    // Stel de huidige datum in in de state
+    setCurrentDate({ day, month, year });
+  }, []);
+  if(!currentDate) return (
+    <div>
+      Loading...
+    </div>
+  );
+
+  const setPage = () => {
+    if (currentDate.month >= 10) {
+      setSelectedJaar("extra");
+    } else {
+      setSelectedJaar("selected");
+    }
+  };
 
   const totaalPriceCalc = () => {
     let colorPrice: number = 0;
@@ -210,6 +237,7 @@ const BestelForm = (data) => {
       color_ring: orderColor,
       inox_ring: orderInox,
       year: selectedJaar,
+      month: currentDate.month,
     };
     console.log(userBestelling);
     createOrder(userBestelling)
@@ -225,25 +253,45 @@ const BestelForm = (data) => {
 
   return (
     <div>
-      {selectedJaar === "select" && (
+      {selectedJaar === "" && (
+        <div className="flex items-center justify-center h-80">
+      <button
+        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" 
+      onClick={setPage}
+      >Nieuwe bestelling</button>
+      </div>
+      )}
+      {selectedJaar === "extra" && (
         <div>
           <div className="flex items-center justify-center h-80">
             <button
               className="bg-blue-500 text-white py-4 px-8 rounded-lg mr-4"
-              onClick={() => setSelectedJaar("past")}
+              onClick={() => setSelectedJaar(currentDate.year)}
             >
-              Vorig Jaar
+              Dit Jaar
             </button>
             <button
               className="bg-blue-500 text-white py-4 px-8 rounded-lg"
-              onClick={() => setSelectedJaar("now")}
+              onClick={() => setSelectedJaar(currentDate.year + 1)}
+            >
+              Volgend Jaar
+            </button>
+          </div>
+        </div>
+      )}
+      {selectedJaar === "selected" && (
+        <div>
+          <div className="flex items-center justify-center h-80">
+            <button
+              className="bg-blue-500 text-white py-4 px-8 rounded-lg"
+              onClick={() => setSelectedJaar(currentDate.year)}
             >
               Dit Jaar
             </button>
           </div>
         </div>
       )}
-      {selectedJaar !== "select" && (
+      {selectedJaar !== "selected" && selectedJaar !== "extra" && selectedJaar !== "" && (
         <div>
           <h1>Verharde jaarkleur ringen</h1>
           <h2>Min 10 stuks daarna 5 stuks oplopend</h2>

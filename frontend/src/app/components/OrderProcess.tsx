@@ -30,7 +30,7 @@ const OrderProcess = ({ orderData }: { orderData: { orderData } }) => {
     if (checkBoolean) {
       updateOrderProcess(orderData.id).then((data) => {
         if (data) {
-          window.location.href = "/orderoverzicht";
+          window.location.href = "/orderfinalizing";
         }
       });
     }

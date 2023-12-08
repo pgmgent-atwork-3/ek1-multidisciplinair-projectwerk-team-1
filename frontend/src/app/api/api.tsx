@@ -176,12 +176,13 @@ export const createOrder = async (order: OrderQuery) => {
   const inoxRingString = JSON.stringify(order.inox_ring).replace(/"/g, "");
   const query = `
     mutation {
-      createOrder(data: { color_ring: ${colorRingString}, user: ${order.user}, price: ${order.totaal}, inox_ring: ${inoxRingString}, year: "${order.year}" }) {
+      createOrder(data: { month:"${order.month}",processed: false, paid: true , color_ring: ${colorRingString}, user: ${order.user}, price: ${order.totaal}, inox_ring: ${inoxRingString}, year: "${order.year}" }) {
         data {
           id
           attributes {
             price
             year
+            month
             user {
               data {
                 id
@@ -213,6 +214,7 @@ export const fetchAllOrders = async () => {
           price
           year
           paid
+          month
           processed
           color_ring 
           inox_ring 
@@ -231,7 +233,6 @@ export const fetchAllOrders = async () => {
     }
   }
   `;
-  console.log(query);
   try {
     const response = await axios.post(url, { query });
     return response.data.data.orders.data;

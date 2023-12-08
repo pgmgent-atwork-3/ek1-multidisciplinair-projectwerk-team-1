@@ -35,6 +35,9 @@
     },
     "processed": {
       "type": "boolean"
+    },
+    "month": {
+      "type": "string"
     }
   }
 }
