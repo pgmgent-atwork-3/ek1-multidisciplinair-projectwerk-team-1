@@ -21,10 +21,8 @@ const bestelPage = async ({ params }: { params: { id: number } }) => {
       collorRing={collorRings}
       inoxRing={inoxRing}
       user={params.id}
-      betaling={true}
+      betaling={"admin"}
       />
-     
-
       
     </div>
   );

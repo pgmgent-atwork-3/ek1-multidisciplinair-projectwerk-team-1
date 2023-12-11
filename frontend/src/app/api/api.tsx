@@ -145,6 +145,26 @@ export const updateUser = async (user: UserUpdate) => {
   }
 };
 
+export const deleteOrder = async ({ id }: { id: number }) => {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/graphql`;
+  const query = `
+  mutation {
+    deleteOrder(id: "${id}") {
+      data {
+        id
+      }
+    }
+  }
+  `;
+  try {
+    const response = await axios.post(url, { query });
+    return response.data.data.deleteOrder.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 export const deleteUser = async ({ id }: { id: number }) => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/graphql`;
   const query = `
@@ -176,7 +196,7 @@ export const createOrder = async (order: OrderQuery) => {
   const inoxRingString = JSON.stringify(order.inox_ring).replace(/"/g, "");
   const query = `
     mutation {
-      createOrder(data: { month:"${order.month}",processed: false, paid: true , color_ring: ${colorRingString}, user: ${order.user}, price: ${order.totaal}, inox_ring: ${inoxRingString}, year: "${order.year}" }) {
+      createOrder(data: { month:"${order.month}",processed: false, paid: ${order.payment} , color_ring: ${colorRingString}, user: ${order.user}, price: ${order.totaal}, inox_ring: ${inoxRingString}, year: "${order.year}" }) {
         data {
           id
           attributes {
@@ -253,6 +273,7 @@ export const fetchOrderById = async (id: number) => {
           price
           year
           paid
+          month
           processed
           color_ring 
           inox_ring 
@@ -302,3 +323,41 @@ export const updateOrderProcess = async (id: number) => {
     return null;
   }
 };
+
+export const updateOrderPaid = async (id: number, boolean : boolean) => {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/graphql`;
+  let query;
+    if(boolean){
+      query = `
+        mutation {
+          updateOrder(id: ${id}, data: { paid: true }) {
+            data {
+              id
+              attributes {
+                paid
+              }
+            }
+            }
+          }`
+    }else{
+      query = `
+        mutation {
+          updateOrder(id: ${id}, data: { paid: false }) {
+            data {
+              id
+              attributes {
+                paid
+              }
+            }
+            }
+          }`
+    }
+    console.log(query);
+  try {
+    const response = await axios.post(url, { query });
+    return response.data.data.updateOrder.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}

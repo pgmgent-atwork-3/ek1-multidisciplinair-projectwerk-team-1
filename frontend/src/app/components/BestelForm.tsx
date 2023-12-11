@@ -6,6 +6,7 @@ const BestelForm = (data) => {
   const id = data.user;
   const collorRings = data.collorRing;
   const inoxRings = data.inoxRing;
+  const [betaald, setBetaald] = useState(data.betaling);
   //jaar select
   const [currentDate, setCurrentDate] = useState(null);
   const [selectedJaar, setSelectedJaar] = useState("");
@@ -41,11 +42,7 @@ const BestelForm = (data) => {
     // Stel de huidige datum in in de state
     setCurrentDate({ day, month, year });
   }, []);
-  if(!currentDate) return (
-    <div>
-      Loading...
-    </div>
-  );
+  if (!currentDate) return <div>Loading...</div>;
 
   const setPage = () => {
     if (currentDate.month >= 10) {
@@ -238,234 +235,272 @@ const BestelForm = (data) => {
       inox_ring: orderInox,
       year: selectedJaar,
       month: currentDate.month,
+      payment: betaald,
     };
     console.log(userBestelling);
-    createOrder(userBestelling)
-    .then((data) => {
-    if (data === null) {
-      alert("Er is iets fout gegaan");
-      return;
-     }
-     alert("Bestelling is geplaatst");
-     window.location.reload();
+    createOrder(userBestelling).then((data) => {
+      if (data === null) {
+        alert("Er is iets fout gegaan");
+        return;
+      }
+      alert("Bestelling is geplaatst");
+      window.location.reload();
     });
   };
 
   return (
     <div>
+      {(betaald === true || betaald === false) && data.betaling == "admin" && (
+        <h2>User heeft betaald</h2>
+      )}
       {selectedJaar === "" && (
-        <div className="flex items-center justify-center h-80">
-      <button
-        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" 
-      onClick={setPage}
-      >Nieuwe bestelling</button>
-      </div>
-      )}
-      {selectedJaar === "extra" && (
         <div>
           <div className="flex items-center justify-center h-80">
+            {betaald === "admin" && (
+              <div>
+                <button
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded ml-4"
+                  onClick={() => setBetaald(true)}
+                >
+                  Betaald
+                </button>
+                <button
+                  className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-4"
+                  onClick={() => setBetaald(false)}
+                >
+                  Niet betaald
+                </button>
+              </div>
+            )}
+          </div>
+          <div className="flex items-center justify-center">
             <button
-              className="bg-blue-500 text-white py-4 px-8 rounded-lg mr-4"
-              onClick={() => setSelectedJaar(currentDate.year)}
+              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+              onClick={setPage}
             >
-              Dit Jaar
-            </button>
-            <button
-              className="bg-blue-500 text-white py-4 px-8 rounded-lg"
-              onClick={() => setSelectedJaar(currentDate.year + 1)}
-            >
-              Volgend Jaar
+              Nieuwe bestelling
             </button>
           </div>
         </div>
       )}
-      {selectedJaar === "selected" && (
-        <div>
-          <div className="flex items-center justify-center h-80">
-            <button
-              className="bg-blue-500 text-white py-4 px-8 rounded-lg"
-              onClick={() => setSelectedJaar(currentDate.year)}
-            >
-              Dit Jaar
-            </button>
+      
+      {selectedJaar === "extra" &&
+        (betaald == true || betaald == false) && (
+          <div>
+            <div className="flex items-center justify-center h-80">
+              <button
+                className="bg-blue-500 text-white py-4 px-8 rounded-lg mr-4"
+                onClick={() => setSelectedJaar(currentDate.year)}
+              >
+                Dit Jaar
+              </button>
+              <button
+                className="bg-blue-500 text-white py-4 px-8 rounded-lg"
+                onClick={() => setSelectedJaar(currentDate.year + 1)}
+              >
+                Volgend Jaar
+              </button>
+            </div>
           </div>
-        </div>
-      )}
-      {selectedJaar !== "selected" && selectedJaar !== "extra" && selectedJaar !== "" && (
-        <div>
-          <h1>Verharde jaarkleur ringen</h1>
-          <h2>Min 10 stuks daarna 5 stuks oplopend</h2>
-          <select
-            name="ringSize"
-            onChange={(element) => handelSelect(element, "color")}
-            className="w-32 py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300 focus:border-blue-300"
-            value={selectedCollorSize}
-          >
-            <option className="text-gray-700" value="select">
-              Select
-            </option>
-            Maat
-            {collorRings.map((ring) => (
-              <option key={ring.id} className="text-gray-700" value={ring.size}>
-                {ring.size}
-              </option>
-            ))}
-          </select>
-          {collorRingsData.length !== 0 && (
-            <div className="p-4 shadow-md rounded-lg bg-blue-100 mt-5 grid grid-cols-5 gap-4 ml-6 mr-6">
-              <p className="text-lg font-semibold">Maat</p>
-              <p className="text-lg font-semibold">Aantal</p>
-              <p className="text-lg font-semibold">Prijs / Per stuk</p>
-              <p className="text-lg font-semibold">Totaal</p>
-              <p className="text-lg font-semibold">Toevoegen</p>
-            </div>
-          )}
-          {collorRingsData.length !== 0 &&
-            collorRingsData.map((ring: any) => (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  addRing(ring.id, "color");
-                }}
+        )}
+      {selectedJaar === "selected" &&
+        (betaald == "true" || betaald == "false") && (
+          <div>
+            <div className="flex items-center justify-center h-80">
+              <button
+                className="bg-blue-500 text-white py-4 px-8 rounded-lg"
+                onClick={() => setSelectedJaar(currentDate.year)}
               >
-                <div
-                  className="p-4 shadow-md rounded-lg bg-blue-100 grid grid-cols-5 gap-4 ml-6 mr-6"
-                  key={ring.id}
-                >
-                  <p className="text-lg font-semibold">{ring.size}</p>
-                  <input
-                    type="number"
-                    required
-                    onChange={(element) =>
-                      handelChange(element, ring.id, "color")
-                    }
-                  />
-                  <p className="text-lg font-semibold">{ring.price}</p>
-                  <p>{prijsCollor[ring.id]}</p>
-                  <button
-                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                    type="submit"
-                  >
-                    Toevoegen
-                  </button>
-                </div>
-              </form>
-            ))}
-
-          <h1>RVS(INOX) ringen</h1>
-          <h2>Mogelijk per stuk</h2>
-
-          <select
-            name="ringSize"
-            onChange={(element) => handelSelect(element, "inox")}
-            className="w-32 py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300 focus:border-blue-300"
-            value={selectedInoxSize}
-          >
-            <option className="text-gray-700" value="select">
-              Select
-            </option>
-            Maat
-            {inoxRings.map((ring) => (
-              <option key={ring.id} className="text-gray-700" value={ring.size}>
-                {ring.size}
-              </option>
-            ))}
-          </select>
-
-          {inoxRingsData.length !== 0 && (
-            <div className="p-4 shadow-md rounded-lg bg-blue-100 mt-5 grid grid-cols-5 gap-4 ml-6 mr-6">
-              <p className="text-lg font-semibold">Maat</p>
-              <p className="text-lg font-semibold">Aantal</p>
-              <p className="text-lg font-semibold">Prijs / Per stuk</p>
-              <p className="text-lg font-semibold">Totaal</p>
-              <p className="text-lg font-semibold">Toevoegen</p>
+                Dit Jaar
+              </button>
             </div>
-          )}
-          {inoxRingsData.length !== 0 &&
-            inoxRingsData.map((ring: any) => (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  addRing(ring.id, "inox");
-                }}
-              >
-                <div
-                  className="p-4 shadow-md rounded-lg bg-blue-100 grid grid-cols-5 gap-4 ml-6 mr-6"
+          </div>
+        )}
+      {selectedJaar !== "selected" &&
+        selectedJaar !== "extra" &&
+        selectedJaar !== "" && (
+          <div>
+            <h1>Verharde jaarkleur ringen</h1>
+            <h2>Min 10 stuks daarna 5 stuks oplopend</h2>
+            <select
+              name="ringSize"
+              onChange={(element) => handelSelect(element, "color")}
+              className="w-32 py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300 focus:border-blue-300"
+              value={selectedCollorSize}
+            >
+              <option className="text-gray-700" value="select">
+                Select
+              </option>
+              Maat
+              {collorRings.map((ring) => (
+                <option
                   key={ring.id}
+                  className="text-gray-700"
+                  value={ring.size}
                 >
-                  <p className="text-lg font-semibold">{ring.size}</p>
-                  <input
-                    type="number"
-                    required
-                    onChange={(element) =>
-                      handelChange(element, ring.id, "inox")
-                    }
-                    value={aantalRingenInox[ring.id]}
-                  />
-                  <p className="text-lg font-semibold">{ring.price}</p>
-                  <p>{prijsInox[ring.id]}</p>
-                  <button
-                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                    type="submit"
-                  >
-                    Toevoegen
-                  </button>
-                </div>
-              </form>
-            ))}
-
-          {bestelling.length !== 0 && (
-            <div>
-              <h3>In process</h3>
+                  {ring.size}
+                </option>
+              ))}
+            </select>
+            {collorRingsData.length !== 0 && (
               <div className="p-4 shadow-md rounded-lg bg-blue-100 mt-5 grid grid-cols-5 gap-4 ml-6 mr-6">
                 <p className="text-lg font-semibold">Maat</p>
                 <p className="text-lg font-semibold">Aantal</p>
-                <p className="text-lg font-semibold">Prijs</p>
-                <p className="text-lg font-semibold">Type</p>
-                <p className="text-lg font-semibold">Verwijderen</p>
+                <p className="text-lg font-semibold">Prijs / Per stuk</p>
+                <p className="text-lg font-semibold">Totaal</p>
+                <p className="text-lg font-semibold">Toevoegen</p>
               </div>
-            </div>
-          )}
-          {bestelling.length !== 0 &&
-            bestelling
-              .filter((bestelling) => bestelling !== undefined)
-              .map((bestelling: any, index: number) => (
-                <div
-                  className="p-4 shadow-md rounded-lg bg-blue-100 grid grid-cols-5 gap-4 ml-6 mr-6"
-                  key={index}
+            )}
+            {collorRingsData.length !== 0 &&
+              collorRingsData.map((ring: any) => (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    addRing(ring.id, "color");
+                  }}
                 >
-                  <p className="text-lg font-semibold">{bestelling.size}</p>
-                  <p className="text-lg font-semibold">{bestelling.amount}</p>
-                  <p className="text-lg font-semibold">{bestelling.price}</p>
-                  <p className="text-lg font-semibold">{bestelling.type}</p>
-                  <button
-                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-                    onClick={() =>
-                      deleteBestelling(bestelling.size, bestelling.type)
-                    }
+                  <div
+                    className="p-4 shadow-md rounded-lg bg-blue-100 grid grid-cols-5 gap-4 ml-6 mr-6"
+                    key={ring.id}
                   >
-                    Verwijderen
-                  </button>
-                </div>
+                    <p className="text-lg font-semibold">{ring.size}</p>
+                    <input
+                      type="number"
+                      required
+                      onChange={(element) =>
+                        handelChange(element, ring.id, "color")
+                      }
+                    />
+                    <p className="text-lg font-semibold">{ring.price}</p>
+                    <p>{prijsCollor[ring.id]}</p>
+                    <button
+                      className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                      type="submit"
+                    >
+                      Toevoegen
+                    </button>
+                  </div>
+                </form>
               ))}
-          {bestelling.length !== 0 && (
-            <div className="bg-blue-500 p-4 rounded-lg shadow-md mr-6 ml-6">
-              <p className="text-white text-lg font-bold">
-                Total: Є{totalPrice}
-              </p>
-            </div>
-          )}
 
-          {bestelling.length !== 0 && (
-            <button
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-              onClick={handelSubmit}
+            <h1>RVS(INOX) ringen</h1>
+            <h2>Mogelijk per stuk</h2>
+
+            <select
+              name="ringSize"
+              onChange={(element) => handelSelect(element, "inox")}
+              className="w-32 py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300 focus:border-blue-300"
+              value={selectedInoxSize}
             >
-              submit
-            </button>
-          )}
-        </div>
-      )}
+              <option className="text-gray-700" value="select">
+                Select
+              </option>
+              Maat
+              {inoxRings.map((ring) => (
+                <option
+                  key={ring.id}
+                  className="text-gray-700"
+                  value={ring.size}
+                >
+                  {ring.size}
+                </option>
+              ))}
+            </select>
+
+            {inoxRingsData.length !== 0 && (
+              <div className="p-4 shadow-md rounded-lg bg-blue-100 mt-5 grid grid-cols-5 gap-4 ml-6 mr-6">
+                <p className="text-lg font-semibold">Maat</p>
+                <p className="text-lg font-semibold">Aantal</p>
+                <p className="text-lg font-semibold">Prijs / Per stuk</p>
+                <p className="text-lg font-semibold">Totaal</p>
+                <p className="text-lg font-semibold">Toevoegen</p>
+              </div>
+            )}
+            {inoxRingsData.length !== 0 &&
+              inoxRingsData.map((ring: any) => (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    addRing(ring.id, "inox");
+                  }}
+                >
+                  <div
+                    className="p-4 shadow-md rounded-lg bg-blue-100 grid grid-cols-5 gap-4 ml-6 mr-6"
+                    key={ring.id}
+                  >
+                    <p className="text-lg font-semibold">{ring.size}</p>
+                    <input
+                      type="number"
+                      required
+                      onChange={(element) =>
+                        handelChange(element, ring.id, "inox")
+                      }
+                      value={aantalRingenInox[ring.id]}
+                    />
+                    <p className="text-lg font-semibold">{ring.price}</p>
+                    <p>{prijsInox[ring.id]}</p>
+                    <button
+                      className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                      type="submit"
+                    >
+                      Toevoegen
+                    </button>
+                  </div>
+                </form>
+              ))}
+
+            {bestelling.length !== 0 && (
+              <div>
+                <h3>In process</h3>
+                <div className="p-4 shadow-md rounded-lg bg-blue-100 mt-5 grid grid-cols-5 gap-4 ml-6 mr-6">
+                  <p className="text-lg font-semibold">Maat</p>
+                  <p className="text-lg font-semibold">Aantal</p>
+                  <p className="text-lg font-semibold">Prijs</p>
+                  <p className="text-lg font-semibold">Type</p>
+                  <p className="text-lg font-semibold">Verwijderen</p>
+                </div>
+              </div>
+            )}
+            {bestelling.length !== 0 &&
+              bestelling
+                .filter((bestelling) => bestelling !== undefined)
+                .map((bestelling: any, index: number) => (
+                  <div
+                    className="p-4 shadow-md rounded-lg bg-blue-100 grid grid-cols-5 gap-4 ml-6 mr-6"
+                    key={index}
+                  >
+                    <p className="text-lg font-semibold">{bestelling.size}</p>
+                    <p className="text-lg font-semibold">{bestelling.amount}</p>
+                    <p className="text-lg font-semibold">{bestelling.price}</p>
+                    <p className="text-lg font-semibold">{bestelling.type}</p>
+                    <button
+                      className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                      onClick={() =>
+                        deleteBestelling(bestelling.size, bestelling.type)
+                      }
+                    >
+                      Verwijderen
+                    </button>
+                  </div>
+                ))}
+            {bestelling.length !== 0 && (
+              <div className="bg-blue-500 p-4 rounded-lg shadow-md mr-6 ml-6">
+                <p className="text-white text-lg font-bold">
+                  Total: Є{totalPrice}
+                </p>
+              </div>
+            )}
+
+            {bestelling.length !== 0 && (
+              <button
+                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                onClick={handelSubmit}
+              >
+                submit
+              </button>
+            )}
+          </div>
+        )}
     </div>
   );
 };
