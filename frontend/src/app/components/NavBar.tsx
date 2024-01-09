@@ -27,9 +27,11 @@ export default async function Navbar() {
               <Link href="/api/auth/signin">Sign In</Link>
             </li>
           )}
-          <li>
-            <Link href="/register">Register</Link>
-          </li>
+          {!session && (
+            <li>
+              <Link href="/register">Register</Link>
+            </li>
+          )}
         </ul>
       </nav>
     );
@@ -60,9 +62,11 @@ export default async function Navbar() {
             <Link href="/api/auth/signin">Sign In</Link>
           </li>
         )}
-        <li>
-          <Link href="/register">Register</Link>
-        </li>
+        {!session && (
+          <li>
+            <Link href="/register">Register</Link>
+          </li>
+        )}
       </ul>
     </nav>
   );
