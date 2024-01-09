@@ -47,8 +47,10 @@ const BestelForm = (data) => {
   const setPage = () => {
     if (currentDate.month >= 10) {
       setSelectedJaar("extra");
+      console.log("extra");
     } else {
       setSelectedJaar("selected");
+      console.log("selected");
     }
   };
 
@@ -253,7 +255,7 @@ const BestelForm = (data) => {
       {(betaald === true || betaald === false) && data.betaling == "admin" && (
         <h2>User heeft betaald</h2>
       )}
-      {selectedJaar === "" && (
+      {selectedJaar == "" && (
         <div>
           <div className="flex items-center justify-center h-80">
             {betaald === "admin" && (
@@ -273,49 +275,50 @@ const BestelForm = (data) => {
               </div>
             )}
           </div>
-          <div className="flex items-center justify-center">
+          {((betaald == true ||
+            betaald == false || betaald == undefined) && (
+              <div className="flex items-center justify-center">
+                <button
+                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                  onClick={setPage}
+                >
+                  Nieuwe bestelling
+                </button>
+              </div>
+            ))}
+        </div>
+      )}
+
+      {selectedJaar == "extra" && (
+        <div>
+          <div className="flex items-center justify-center h-80">
             <button
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-              onClick={setPage}
+              className="bg-blue-500 text-white py-4 px-8 rounded-lg mr-4"
+              onClick={() => setSelectedJaar(currentDate.year)}
             >
-              Nieuwe bestelling
+              Dit Jaar
+            </button>
+            <button
+              className="bg-blue-500 text-white py-4 px-8 rounded-lg"
+              onClick={() => setSelectedJaar(currentDate.year + 1)}
+            >
+              Volgend Jaar
             </button>
           </div>
         </div>
       )}
-      
-      {selectedJaar === "extra" &&
-        (betaald == true || betaald == false) && (
-          <div>
-            <div className="flex items-center justify-center h-80">
-              <button
-                className="bg-blue-500 text-white py-4 px-8 rounded-lg mr-4"
-                onClick={() => setSelectedJaar(currentDate.year)}
-              >
-                Dit Jaar
-              </button>
-              <button
-                className="bg-blue-500 text-white py-4 px-8 rounded-lg"
-                onClick={() => setSelectedJaar(currentDate.year + 1)}
-              >
-                Volgend Jaar
-              </button>
-            </div>
+      {selectedJaar == "selected" && (
+        <div>
+          <div className="flex items-center justify-center h-80">
+            <button
+              className="bg-blue-500 text-white py-4 px-8 rounded-lg"
+              onClick={() => setSelectedJaar(currentDate.year)}
+            >
+              Dit Jaar
+            </button>
           </div>
-        )}
-      {selectedJaar === "selected" &&
-        (betaald == "true" || betaald == "false") && (
-          <div>
-            <div className="flex items-center justify-center h-80">
-              <button
-                className="bg-blue-500 text-white py-4 px-8 rounded-lg"
-                onClick={() => setSelectedJaar(currentDate.year)}
-              >
-                Dit Jaar
-              </button>
-            </div>
-          </div>
-        )}
+        </div>
+      )}
       {selectedJaar !== "selected" &&
         selectedJaar !== "extra" &&
         selectedJaar !== "" && (
@@ -353,34 +356,36 @@ const BestelForm = (data) => {
             )}
             {collorRingsData.length !== 0 &&
               collorRingsData.map((ring: any) => (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    addRing(ring.id, "color");
-                  }}
-                >
-                  <div
-                    className="p-4 shadow-md rounded-lg bg-blue-100 grid grid-cols-5 gap-4 ml-6 mr-6"
-                    key={ring.id}
+                <>
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      addRing(ring.id, "color");
+                    }}
                   >
-                    <p className="text-lg font-semibold">{ring.size}</p>
-                    <input
-                      type="number"
-                      required
-                      onChange={(element) =>
-                        handelChange(element, ring.id, "color")
-                      }
-                    />
-                    <p className="text-lg font-semibold">{ring.price}</p>
-                    <p>{prijsCollor[ring.id]}</p>
-                    <button
-                      className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                      type="submit"
+                    <div
+                      className="p-4 shadow-md rounded-lg bg-blue-100 grid grid-cols-5 gap-4 ml-6 mr-6"
+                      key={ring.id}
                     >
-                      Toevoegen
-                    </button>
-                  </div>
-                </form>
+                      <p className="text-lg font-semibold">{ring.size}</p>
+                      <input
+                        type="number"
+                        required
+                        onChange={(element) =>
+                          handelChange(element, ring.id, "color")
+                        }
+                      />
+                      <p className="text-lg font-semibold">{ring.price}</p>
+                      <p>{prijsCollor[ring.id]}</p>
+                      <button
+                        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                        type="submit"
+                      >
+                        Toevoegen
+                      </button>
+                    </div>
+                  </form>
+                </>
               ))}
 
             <h1>RVS(INOX) ringen</h1>
@@ -418,35 +423,37 @@ const BestelForm = (data) => {
             )}
             {inoxRingsData.length !== 0 &&
               inoxRingsData.map((ring: any) => (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    addRing(ring.id, "inox");
-                  }}
-                >
-                  <div
-                    className="p-4 shadow-md rounded-lg bg-blue-100 grid grid-cols-5 gap-4 ml-6 mr-6"
-                    key={ring.id}
+                <>
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      addRing(ring.id, "inox");
+                    }}
                   >
-                    <p className="text-lg font-semibold">{ring.size}</p>
-                    <input
-                      type="number"
-                      required
-                      onChange={(element) =>
-                        handelChange(element, ring.id, "inox")
-                      }
-                      value={aantalRingenInox[ring.id]}
-                    />
-                    <p className="text-lg font-semibold">{ring.price}</p>
-                    <p>{prijsInox[ring.id]}</p>
-                    <button
-                      className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                      type="submit"
+                    <div
+                      className="p-4 shadow-md rounded-lg bg-blue-100 grid grid-cols-5 gap-4 ml-6 mr-6"
+                      key={ring.id}
                     >
-                      Toevoegen
-                    </button>
-                  </div>
-                </form>
+                      <p className="text-lg font-semibold">{ring.size}</p>
+                      <input
+                        type="number"
+                        required
+                        onChange={(element) =>
+                          handelChange(element, ring.id, "inox")
+                        }
+                        value={aantalRingenInox[ring.id]}
+                      />
+                      <p className="text-lg font-semibold">{ring.price}</p>
+                      <p>{prijsInox[ring.id]}</p>
+                      <button
+                        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                        type="submit"
+                      >
+                        Toevoegen
+                      </button>
+                    </div>
+                  </form>
+                </>
               ))}
 
             {bestelling.length !== 0 && (
