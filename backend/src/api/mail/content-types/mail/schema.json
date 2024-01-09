@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mails",
+  "info": {
+    "singularName": "mail",
+    "pluralName": "mails",
+    "displayName": "Mail"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "price": {
+      "type": "decimal"
+    }
+  }
+}

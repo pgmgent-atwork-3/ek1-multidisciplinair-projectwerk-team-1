@@ -362,6 +362,28 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiMailMail extends Schema.CollectionType {
+  collectionName: 'mails';
+  info: {
+    singularName: 'mail';
+    pluralName: 'mails';
+    displayName: 'Mail';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String;
+    price: Attribute.Decimal;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::mail.mail', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::mail.mail', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiOrderOrder extends Schema.CollectionType {
   collectionName: 'orders';
   info: {
@@ -729,6 +751,7 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::mail.mail': ApiMailMail;
       'api::order.order': ApiOrderOrder;
       'api::year-color.year-color': ApiYearColorYearColor;
       'plugin::upload.file': PluginUploadFile;

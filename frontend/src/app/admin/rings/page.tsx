@@ -1,21 +1,8 @@
 "use client";
-import { fetchUser } from "@/app/api/api";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/authOptions";
-import { redirect } from "next/navigation";
 import { loadColorRings, loadInoxRings, saveColorRings, saveInoxRings } from "@/app/api/api";
 import { useEffect, useState } from "react";
 
 const Rings = () => {
-  // const session = await getServerSession(authOptions);
-
-  // if (!session) {
-  //   redirect("/api/auth/signin?callbackUrl=/admin/rings");
-  // }
-  // const activeUser = await fetchUser(session?.id);
-  // if (activeUser.attributes.role?.data.attributes.name !== "admin") {
-  //   return <h1 className="text-4xl ">Not authorized</h1>;
-  // }
   const [colorRings, setColorRings] = useState<Rings>([]);
   const [inoxRings, setInoxRings] = useState<Rings>([]);
   const [editingColor, setEditingColor] = useState(false);
@@ -127,14 +114,14 @@ const Rings = () => {
 
   return (
     <>
-    <h2 className="text-4xl mt-4 ml-4">Ring prices</h2>
+    <h2 className="text-4xl mt-4 ml-4">Ring prijzen en maten</h2>
     <div className="grid grid-cols-2 mx-auto">
       <div className="w-96">
-        <h2 className="text-2xl mt-4 ml-4">Colored rings</h2>
+        <h2 className="text-2xl mt-4 ml-4">Gekleurde Ringen</h2>
         <ul className="flex justify between flex-col">
           {colorRings.map((ring, index) => (
             <li key={ring.size} className="flex items-center justify-between py-2 px-4">
-              <label htmlFor="size">Size</label>
+              <label htmlFor="size" className="text-lg font-bold pr-2 pl-8">Maat</label>
               <input
                 type="number"
                 className="border-2 border-gray-400 rounded-md px-2 py-1"
@@ -144,7 +131,7 @@ const Rings = () => {
                 onChange={(event) => handleChangeColor(index, event)}
                 disabled={!editingColor}
               />
-              <label htmlFor="price">Price</label>
+              <label htmlFor="price" className="text-lg font-bold pr-2 pl-8">Prijs</label>
               <input
                 type="number"
                 className="border-2 border-gray-400 rounded-md px-2 py-1"
@@ -155,27 +142,27 @@ const Rings = () => {
                 disabled={!editingColor}
               />
               {editingColor ? (
-                <button className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600" onClick={() => handleDeleteColor(index)}>Delete</button>
+                <button className="ml-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600" onClick={() => handleDeleteColor(index)}>Verwijderen</button>
               ) : null}
             </li>
           ))}
         </ul>
         {editingColor ? (
-          <>
-            <button className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600" onClick={() => setEditingColor(false)}>Cancel</button>
-            <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={handleSubmitColor}>Submit</button>
-            <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={addColorRing}>Add ring</button>
-          </>
+          <div className="flex space-x-4 mt-4">
+            <button className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600" onClick={() => setEditingColor(false)}>Annuleren</button>
+            <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={handleSubmitColor}>Bevestigen</button>
+            <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={addColorRing}>Ring toevoegen</button>
+          </div>
           ) : (
-            <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={() => setEditingColor(true)}>edit</button>
+            <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={() => setEditingColor(true)}>Bewerken</button>
         )}
       </div>
       <div className="w-96">
-        <h2 className="text-2xl mt-4 ml-4">Inox rings</h2>
+        <h2 className="text-2xl mt-4 ml-4">Inox ringen</h2>
         <ul className="flex justify between flex-col">
           {inoxRings.map((ring, index) => (
             <li key={ring.size} className="flex items-center justify-between py-2 px-4">
-              <label htmlFor="size">Size</label>
+              <label htmlFor="size" className="text-lg font-bold pr-2 pl-8">Maat</label>
               <input
                 type="number"
                 className="border-2 border-gray-400 rounded-md px-2 py-1"
@@ -185,7 +172,7 @@ const Rings = () => {
                 onChange={(event) => handleChangeInox(index, event)}
                 disabled={!editingInox}
               />
-              <label htmlFor="price">Price</label>
+              <label htmlFor="price" className="text-lg font-bold pr-2 pl-8">Prijs</label>
               <input
                 type="number"
                 className="border-2 border-gray-400 rounded-md px-2 py-1"
@@ -196,20 +183,20 @@ const Rings = () => {
                 disabled={!editingInox}
               />
               {editingInox ? (
-                <button className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600" onClick={() => handleDeleteInox(index)}>Delete</button>
+                <button className="ml-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600" onClick={() => handleDeleteInox(index)}>Verwijderen</button>
               ) : null}
             </li>
           ))}
         </ul>
         {editingInox ? (
-          <>
-            <button className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600" onClick={() => setEditingInox(false)}>Cancel</button>
-            <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={handleSubmitInox}>Submit</button>
-            <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={addInoxRing}>Add ring</button>
-          </>
+            <div className="flex space-x-4 mt-4">
+              <button className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600" onClick={() => setEditingInox(false)}>Annuleren</button>
+              <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={handleSubmitInox}>Bevestigen</button>
+              <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={addInoxRing}>Ring toevoegen</button>
+            </div>
           ) : (
-            <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={() => setEditingInox(true)}>edit</button>
-        )}
+            <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onClick={() => setEditingInox(true)}>Bewerken</button>
+          )}
       </div>
     </div>
     </>
