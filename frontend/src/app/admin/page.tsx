@@ -13,7 +13,6 @@ const Admin = async () => {
   if (!session) {
     redirect("/api/auth/signin?callbackUrl=/admin");
   }
-  console.log(session);
   const activeUser = await fetchUser(session.id);
   if (activeUser.attributes.role?.data.attributes.name !== "admin") {
     return <h1 className="text-4xl ">Not authorized</h1>;
@@ -23,9 +22,12 @@ const Admin = async () => {
   return (
     <>
     <h2>Verkoop</h2>
-      <div className="flex justify-center items-center mt-16">
+      <div className="flex justify-center gap-4 items-center mt-16">
       <a href="/orderfinalizing" className="bg-green-500 hover:bg-green-600 text-white text-center font-bold py-2 px-4 rounded">
         Maand verkoop
+      </a>
+      <a href="/orderoverzicht" className="bg-green-500 hover:bg-green-600 text-white text-center font-bold py-2 px-4 rounded">
+        Order geschiedenis
       </a>
     </div>
       <h2 className="text-4xl mt-4 ml-4">Users</h2>
