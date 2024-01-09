@@ -19,6 +19,15 @@ const Admin = async () => {
 
   return (
     <>
+      <h2>Aanpasbare waarden</h2>
+      <div className="flex justify-center gap-4 items-center mt-16">
+      <a href="/admin/rings" className="bg-green-500 hover:bg-green-600 text-white text-center font-bold py-2 px-4 rounded">
+        Ringen
+      </a>
+      <a href="/admin/year-colors" className="bg-green-500 hover:bg-green-600 text-white text-center font-bold py-2 px-4 rounded">
+        Jaar kleuren en post prijzen
+      </a>
+    </div>
     <h2>Verkoop</h2>
       <div className="flex justify-center gap-4 items-center mt-16">
       <a href="/orderfinalizing" className="bg-green-500 hover:bg-green-600 text-white text-center font-bold py-2 px-4 rounded">

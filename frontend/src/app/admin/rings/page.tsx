@@ -1,21 +1,8 @@
 "use client";
-import { fetchUser } from "@/app/api/api";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/authOptions";
-import { redirect } from "next/navigation";
 import { loadColorRings, loadInoxRings, saveColorRings, saveInoxRings } from "@/app/api/api";
 import { useEffect, useState } from "react";
 
 const Rings = () => {
-  // const session = await getServerSession(authOptions);
-
-  // if (!session) {
-  //   redirect("/api/auth/signin?callbackUrl=/admin/rings");
-  // }
-  // const activeUser = await fetchUser(session?.id);
-  // if (activeUser.attributes.role?.data.attributes.name !== "admin") {
-  //   return <h1 className="text-4xl ">Not authorized</h1>;
-  // }
   const [colorRings, setColorRings] = useState<Rings>([]);
   const [inoxRings, setInoxRings] = useState<Rings>([]);
   const [editingColor, setEditingColor] = useState(false);
