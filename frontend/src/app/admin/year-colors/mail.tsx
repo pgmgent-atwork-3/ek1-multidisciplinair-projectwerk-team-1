@@ -88,9 +88,9 @@ const Mail = () => {
     setMails(mails.filter((mail: Mail) => mail.id !== id));
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Laden...</p>;
   if (error) return <p>Error :{error.message}</p>;
-  if (!data) return <p>No mails</p>;
+  if (!data) return <p>Geen data gevonden</p>;
 
   return (
     <div>
@@ -110,10 +110,10 @@ const Mail = () => {
             step={0.01}
             onChange={(e) => handleChange(e, mail.id, "price")}
           />
-          <button className="bg-red-500 text-white px-4 py-2 rounded-md" onClick={() => handleDelete(mail.id)}>Delete</button>
+          <button className="bg-red-500 text-white px-4 py-2 rounded-md" onClick={() => handleDelete(mail.id)}>Verwijderen</button>
         </div>
       ))}
-      <button className="bg-blue-500 text-white px-4 py-2 rounded-md" onClick={handleUpdate}>Save</button>
+      <button className="bg-blue-500 text-white px-4 py-2 rounded-md" onClick={handleUpdate}>Opslaan</button>
       <div className="mt-4">
         <input
           type="text"
@@ -129,7 +129,7 @@ const Mail = () => {
           onChange={(e) => handleNewChange(e, "price")}
         />
       </div>
-      <button className="bg-green-500 text-white px-4 py-2 rounded-md mt-2" onClick={handleCreate}>Add new</button>
+      <button className="bg-green-500 text-white px-4 py-2 rounded-md mt-2" onClick={handleCreate}>Nieuwe toevoegen</button>
     </div>
   );
 };

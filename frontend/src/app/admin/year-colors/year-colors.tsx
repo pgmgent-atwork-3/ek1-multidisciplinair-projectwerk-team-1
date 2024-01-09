@@ -88,9 +88,9 @@ const YearColors = () => {
     );
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Laden...</p>;
   if (error) return <p>{error.message}</p>;
-  if (!data) return <p>No data</p>;
+  if (!data) return <p>Geen data</p>;
 
   return (
     <div>
@@ -112,10 +112,10 @@ const YearColors = () => {
             value={year_color.attributes.color}
             onChange={(e) => handleChange(e, year_color.id, "color")}
           />
-          <button className="bg-red-500 text-white px-4 py-2 rounded-md" onClick={() => handleDelete(year_color.id)}>Delete</button>
+          <button className="bg-red-500 text-white px-4 py-2 rounded-md" onClick={() => handleDelete(year_color.id)}>Verwijderen</button>
         </div>
       ))}
-      <button className="bg-blue-500 text-white px-4 py-2 rounded-md" onClick={handleUpdate}>Save</button>
+      <button className="bg-blue-500 text-white px-4 py-2 rounded-md" onClick={handleUpdate}>Opslaan</button>
       <div className="mt-4">
         <input
           type="number"
@@ -133,7 +133,7 @@ const YearColors = () => {
           onChange={(e) => handleNewChange(e, "color")}
         />
       </div>
-      <button className="bg-green-500 text-white px-4 py-2 rounded-md mt-2" onClick={handleCreate}>Add new</button>
+      <button className="bg-green-500 text-white px-4 py-2 rounded-md mt-2" onClick={handleCreate}>Nieuwe toevoegen</button>
     </div>
   );
 };
