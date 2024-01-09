@@ -1,9 +1,7 @@
 import { fetchUser } from "@/app/api/api";
-
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import { redirect } from "next/navigation";
-import Image from "next/image";
 import { fetchAllUsers } from "@/app/api/api";
 import DeleteUser from "@/app/components/buttons/DeleteUser";
 
@@ -13,7 +11,6 @@ const Admin = async () => {
   if (!session) {
     redirect("/api/auth/signin?callbackUrl=/admin");
   }
-  console.log(session);
   const activeUser = await fetchUser(session.id);
   if (activeUser.attributes.role?.data.attributes.name !== "admin") {
     return <h1 className="text-4xl ">Not authorized</h1>;
