@@ -40,7 +40,6 @@ export async function saveInoxRings(rings: Rings): Promise<void> {
 
 export const fetchUser = async (user: User) => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/graphql`;
-  console.log(user);
   const query = `
   query {
     usersPermissionsUser (id: "${user}") {
@@ -99,7 +98,6 @@ export const fetchAllUsers = async () => {
     }
   }
   `;
-  console.log(query);
   try {
     const response = await axios.post(url, { query });
     return response.data.data.usersPermissionsUsers.data;
@@ -135,7 +133,6 @@ export const updateUser = async (user: UserUpdate) => {
       }
     }
   }`;
-  console.log(query);
   try {
     const response = await axios.post(url, { query });
     return response.data.data.updateUsersPermissionsUser.data;
@@ -180,7 +177,6 @@ export const deleteUser = async ({ id }: { id: number }) => {
     }
   }
   `;
-  console.log(query);
   try {
     const response = await axios.post(url, { query });
     return response.data.data.deleteUsersPermissionsUser.data;
@@ -213,7 +209,6 @@ export const createOrder = async (order: OrderQuery) => {
       }
     }     
 `;
-  console.log(query);
   try {
     const response = await axios.post(url, { query });
     return response.data.data.createOrder.data;
@@ -324,11 +319,11 @@ export const updateOrderProcess = async (id: number) => {
   }
 };
 
-export const updateOrderPaid = async (id: number, boolean : boolean) => {
+export const updateOrderPaid = async (id: number, boolean: boolean) => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/graphql`;
   let query;
-    if(boolean){
-      query = `
+  if (boolean) {
+    query = `
         mutation {
           updateOrder(id: ${id}, data: { paid: true }) {
             data {
@@ -338,9 +333,9 @@ export const updateOrderPaid = async (id: number, boolean : boolean) => {
               }
             }
             }
-          }`
-    }else{
-      query = `
+          }`;
+  } else {
+    query = `
         mutation {
           updateOrder(id: ${id}, data: { paid: false }) {
             data {
@@ -350,9 +345,8 @@ export const updateOrderPaid = async (id: number, boolean : boolean) => {
               }
             }
             }
-          }`
-    }
-    console.log(query);
+          }`;
+  }
   try {
     const response = await axios.post(url, { query });
     return response.data.data.updateOrder.data;
@@ -360,4 +354,4 @@ export const updateOrderPaid = async (id: number, boolean : boolean) => {
     console.log(error);
     return null;
   }
-}
+};
