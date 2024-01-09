@@ -240,6 +240,7 @@ export const fetchAllOrders = async () => {
                 voornaam
                 achternaam
                 stamNr
+                email
               }
             }
           }
