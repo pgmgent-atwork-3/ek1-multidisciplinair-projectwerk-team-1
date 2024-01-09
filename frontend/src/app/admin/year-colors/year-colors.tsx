@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import {
-  GET_YEAR_COLORS,
   UPDATE_YEAR_COLOR,
   CREATE_YEAR_COLOR,
   DELETE_YEAR_COLOR,
-} from "@/app/api/year-color";
+} from "@/lib/mutations/year-color";
+import { GET_YEAR_COLORS } from "@/lib/queries/year-color";
 import { useMutation, useQuery } from "@apollo/client";
 
 const YearColors = () => {

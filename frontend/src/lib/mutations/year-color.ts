@@ -1,19 +1,5 @@
 import { gql } from '@apollo/client';
 
-export const GET_YEAR_COLORS = gql`
-  query GetYearColors {
-    yearColors {
-      data {
-        id
-        attributes {
-          year
-          color
-        }
-      }
-    }
-  }
-`;
-
 export const GET_YEAR_COLOR_BY_YEAR = gql`
   query GetYearColorByYear($year: Int!) {
     year_color_by_year(year: $year) {

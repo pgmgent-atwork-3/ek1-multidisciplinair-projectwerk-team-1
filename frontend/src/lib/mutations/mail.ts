@@ -1,19 +1,5 @@
 import { gql } from '@apollo/client';
 
-export const GET_MAILS = gql`
-  query GetMails {
-    mails {
-      data {
-        id
-        attributes {
-          name
-          price
-        }
-      }
-    }
-  }
-`;
-
 export const UPDATE_MAIL = gql`
   mutation UpdateMail($id: ID!, $name: String!, $price: Float!) {
     updateMail(id: $id, data: { name: $name, price: $price }) {

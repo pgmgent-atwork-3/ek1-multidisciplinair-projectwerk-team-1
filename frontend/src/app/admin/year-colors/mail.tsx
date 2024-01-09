@@ -1,10 +1,10 @@
 "use client";
 import {
   CREATE_MAIL,
-  GET_MAILS,
   UPDATE_MAIL,
   DELETE_MAIL,
-} from "@/app/api/mail";
+} from "@/lib/mutations/mail";
+import { GET_MAILS } from "@/lib/queries/mail";
 import { useQuery, useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
 
