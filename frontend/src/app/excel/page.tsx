@@ -1,6 +1,3 @@
-// pages/index.js
-
-
 import UploadExcellFile from '../components/UploadExcellFile';
 
 const excel = () => {
@@ -10,7 +7,6 @@ const excel = () => {
 
   return (
     <div>
-      <h1>Excel Data Extraction</h1>
       <UploadExcellFile/>
 
       

@@ -11,10 +11,12 @@ const page = async ({ params }: { params: { id: number } }) => {
   }
 
   const user = await fetchUser(params.id);
-  let role = "Yes";
 
-  if (user.attributes.role?.data.attributes.name !== "autenticated") {
-    role = "No";
+  let lid: string;
+  if (user.attributes.lid == true) {
+    lid = "Ja";
+  } else {
+    lid = "Nee";
   }
 
   return (
@@ -61,7 +63,7 @@ const page = async ({ params }: { params: { id: number } }) => {
         </div>
         <div className="flex gap-2">
           <p className="font-semibold">Lid :</p>
-          <p>{role}</p>
+          <p>{lid}</p>
         </div>
         <a
           href={`/user/${user.id}`}
@@ -71,14 +73,20 @@ const page = async ({ params }: { params: { id: number } }) => {
         </a>
       </div>
       <div>
-        <a 
-        className="bg-blue-500 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded mt-4 block"
-        href={`/bestelling/${user.id}`}>Bestelling toevoegen</a>
+        <a
+          className="bg-blue-500 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded mt-4 block"
+          href={`/bestelling/${user.id}`}
+        >
+          Bestelling toevoegen
+        </a>
       </div>
       <div>
-        <a 
-        className="bg-blue-500 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded mt-4 block"
-        href={`/orderoverzicht/${user.id}`}>Bestellingen bekijken</a>
+        <a
+          className="bg-blue-500 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded mt-4 block"
+          href={`/orderoverzicht/${user.id}`}
+        >
+          Bestellingen bekijken
+        </a>
       </div>
     </div>
   );

@@ -6,6 +6,8 @@ import { REGISTER_USER, UPDATE_USER } from "@/lib/mutations/login";
 import { updateUser } from "@/app/api/api";
 
 const UserForm = ({ user }: { user: User | null }) => {
+  const [registerUser] = useMutation(REGISTER_USER);
+  const [userUpdate] = useMutation(UPDATE_USER);
   const [formData, setFormData] = useState({
     stamNr: "",
     email: "",
@@ -19,6 +21,7 @@ const UserForm = ({ user }: { user: User | null }) => {
     gemeente: "",
     straat: "",
     huisnummer: "",
+    lid: false,
   });
   const [formDataUpdate, setFormDataUpdate] = useState({
     stamNr: user?.attributes.stamNr,
@@ -38,7 +41,6 @@ const UserForm = ({ user }: { user: User | null }) => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     console.log(value.length);
@@ -47,12 +49,12 @@ const UserForm = ({ user }: { user: User | null }) => {
       const secondLetterCheck = value.slice(1, 2);
       const firstLetter = "f";
       let secondLetter;
-      if(user) {
+      if (user) {
         secondLetter = formDataUpdate.achternaam.slice(0, 1);
-      }else{
+      } else {
         secondLetter = formData.achternaam.slice(0, 1);
       }
-      console.log(secondLetter)
+      console.log(secondLetter);
       if (
         firstLetterCheck != firstLetter ||
         secondLetterCheck != secondLetter
@@ -73,8 +75,6 @@ const UserForm = ({ user }: { user: User | null }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const [registerUser] = useMutation(REGISTER_USER);
-    const [updateUser] = useMutation(UPDATE_USER);
     setErrors("");
     setEmailError("");
     setPasswordError("");
@@ -101,7 +101,7 @@ const UserForm = ({ user }: { user: User | null }) => {
       }
       if (registerData?.data.register.user.id) {
         try {
-          const { data } = await updateUser({
+          const { data } = await userUpdate({
             variables: {
               id: registerData.data.register.user.id,
               stamNr: formData.stamNr,
@@ -114,6 +114,7 @@ const UserForm = ({ user }: { user: User | null }) => {
               gemeente: formData.gemeente,
               straat: formData.straat,
               huisnummer: formData.huisnummer,
+              lid: false,
             },
           });
           if (data && data.register) {
@@ -129,6 +130,7 @@ const UserForm = ({ user }: { user: User | null }) => {
         }
       }
     }
+    window.location.href = "/api/auth/signin"
   };
 
   const handleUpdateSubmit = async (e: React.FormEvent) => {
@@ -141,20 +143,20 @@ const UserForm = ({ user }: { user: User | null }) => {
     } else {
       try {
         const userUpdate = {
-            id: parseInt(user.id),
-            email: formDataUpdate.email,
-            stamNr: formDataUpdate.stamNr,
-            voornaam: formDataUpdate.voornaam,
-            achternaam: formDataUpdate.achternaam,
-            username: formDataUpdate.email,
-            telefoon: formDataUpdate.telefoon,
-            gsm: formDataUpdate.gsm,
-            land: formDataUpdate.land,
-            postcode: formDataUpdate.postcode,
-            gemeente: formDataUpdate.gemeente,
-            straat: formDataUpdate.straat,
-            huisnummer: formDataUpdate.huisnummer,
-        }
+          id: parseInt(user.id),
+          email: formDataUpdate.email,
+          stamNr: formDataUpdate.stamNr,
+          voornaam: formDataUpdate.voornaam,
+          achternaam: formDataUpdate.achternaam,
+          username: formDataUpdate.email,
+          telefoon: formDataUpdate.telefoon,
+          gsm: formDataUpdate.gsm,
+          land: formDataUpdate.land,
+          postcode: formDataUpdate.postcode,
+          gemeente: formDataUpdate.gemeente,
+          straat: formDataUpdate.straat,
+          huisnummer: formDataUpdate.huisnummer,
+        };
         const { data } = await updateUser(userUpdate);
         console.log(formData);
         if (data && data.register) {
@@ -169,6 +171,8 @@ const UserForm = ({ user }: { user: User | null }) => {
         }
       }
     }
+    alert("Gebruiker is geupdate");
+    window.location.href = "/"
   };
 
   if (user) {
@@ -187,13 +191,7 @@ const UserForm = ({ user }: { user: User | null }) => {
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
             />
-            <Image
-              src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-              alt="required"
-              width={111}
-              height={80}
-              className="h-10 w-auto"
-            />
+            {/*image*/}
           </div>
           <div className="mb-4 flex">
             <input
@@ -205,13 +203,7 @@ const UserForm = ({ user }: { user: User | null }) => {
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
             />
-            <Image
-              src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-              alt="required"
-              width={111}
-              height={80}
-              className="h-10 w-auto"
-            />
+            {/*image*/}
           </div>
           {emailError && <p className="text-red-500">{emailError}</p>}
           <div className="mb-4 flex">
@@ -224,13 +216,7 @@ const UserForm = ({ user }: { user: User | null }) => {
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
             />
-            <Image
-              src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-              alt="required"
-              width={111}
-              height={80}
-              className="h-10 w-auto"
-            />
+            {/*image*/}
           </div>
           <div className="mb-4 flex">
             <input
@@ -242,13 +228,7 @@ const UserForm = ({ user }: { user: User | null }) => {
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
             />
-            <Image
-              src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-              alt="required"
-              width={111}
-              height={80}
-              className="h-10 w-auto"
-            />
+            {/*image*/}
           </div>
 
           <div className="mb-4 flex">
@@ -261,13 +241,7 @@ const UserForm = ({ user }: { user: User | null }) => {
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
             />
-            <Image
-              src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-              alt="required"
-              width={111}
-              height={80}
-              className="h-10 w-auto"
-            />
+            {/*image*/}
           </div>
           <div className="mb-4 flex">
             <input
@@ -279,13 +253,7 @@ const UserForm = ({ user }: { user: User | null }) => {
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
             />
-            <Image
-              src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-              alt="required"
-              width={111}
-              height={80}
-              className="h-10 w-auto"
-            />
+            {/*image*/}
           </div>
           <div className="mb-4 flex">
             <input
@@ -297,13 +265,7 @@ const UserForm = ({ user }: { user: User | null }) => {
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
             />
-            <Image
-              src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-              alt="required"
-              width={111}
-              height={80}
-              className="h-10 w-auto"
-            />
+            {/*image*/}
           </div>
           <div className="mb-4 flex">
             <input
@@ -315,13 +277,7 @@ const UserForm = ({ user }: { user: User | null }) => {
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
             />
-            <Image
-              src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-              alt="required"
-              width={111}
-              height={80}
-              className="h-10 w-auto"
-            />
+            {/*image*/}
           </div>
           <div className="mb-4 flex">
             <input
@@ -333,13 +289,7 @@ const UserForm = ({ user }: { user: User | null }) => {
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
             />
-            <Image
-              src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-              alt="required"
-              width={111}
-              height={80}
-              className="h-10 w-auto"
-            />
+            {/*image*/}
           </div>
           <div className="mb-4">
             <input
@@ -390,13 +340,7 @@ const UserForm = ({ user }: { user: User | null }) => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
-          <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-            alt="required"
-            width={111}
-            height={80}
-            className="h-10 w-auto"
-          />
+          {/*image*/}
         </div>
         <div className="mb-4 flex">
           <input
@@ -408,13 +352,7 @@ const UserForm = ({ user }: { user: User | null }) => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
-          <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-            alt="required"
-            width={111}
-            height={80}
-            className="h-10 w-auto"
-          />
+          {/*image*/}
         </div>
         {emailError && <p className="text-red-500">{emailError}</p>}
         <div className="mb-4 flex">
@@ -427,13 +365,7 @@ const UserForm = ({ user }: { user: User | null }) => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
-          <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-            alt="required"
-            width={111}
-            height={80}
-            className="h-10 w-auto"
-          />
+          {/*image*/}
         </div>
         {passwordError && <p className="text-red-500">{passwordError}</p>}
         <div className="mb-4 flex">
@@ -446,13 +378,7 @@ const UserForm = ({ user }: { user: User | null }) => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
-          <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-            alt="required"
-            width={111}
-            height={80}
-            className="h-10 w-auto"
-          />
+          {/*image*/}
         </div>
         <div className="mb-4 flex">
           <input
@@ -464,13 +390,7 @@ const UserForm = ({ user }: { user: User | null }) => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
-          <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-            alt="required"
-            width={111}
-            height={80}
-            className="h-10 w-auto"
-          />
+          {/*image*/}
         </div>
 
         <div className="mb-4 flex">
@@ -483,13 +403,7 @@ const UserForm = ({ user }: { user: User | null }) => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
-          <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-            alt="required"
-            width={111}
-            height={80}
-            className="h-10 w-auto"
-          />
+          {/*image*/}
         </div>
         <div className="mb-4 flex">
           <input
@@ -501,13 +415,7 @@ const UserForm = ({ user }: { user: User | null }) => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
-          <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-            alt="required"
-            width={111}
-            height={80}
-            className="h-10 w-auto"
-          />
+          {/*image*/}
         </div>
         <div className="mb-4 flex">
           <input
@@ -519,13 +427,7 @@ const UserForm = ({ user }: { user: User | null }) => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
-          <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-            alt="required"
-            width={111}
-            height={80}
-            className="h-10 w-auto"
-          />
+          {/*image*/}
         </div>
         <div className="mb-4 flex">
           <input
@@ -537,13 +439,7 @@ const UserForm = ({ user }: { user: User | null }) => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
-          <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-            alt="required"
-            width={111}
-            height={80}
-            className="h-10 w-auto"
-          />
+          {/*image*/}
         </div>
         <div className="mb-4 flex">
           <input
@@ -555,13 +451,7 @@ const UserForm = ({ user }: { user: User | null }) => {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
-          <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/required_4e5590661b.jpg`}
-            alt="required"
-            width={111}
-            height={80}
-            className="h-10 w-auto"
-          />
+          {/*image*/}
         </div>
         <div className="mb-4">
           <input

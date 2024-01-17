@@ -21,6 +21,18 @@ export default async function Navbar() {
             Bestellen
           </Link>
         </li>
+        <li>
+          <Link
+            href={
+              session ? `/mijnbestellingen/${session.id}` : "/mijnbestellingen"
+            }
+          >
+            Bestellingen bekijken
+          </Link>
+        </li>
+        <li>
+          <Link href={`/user/${session.id}`}>Gebruiker aanpassen</Link>
+        </li>
         {isAdmin && (
           <li>
             <Link href="/admin">Admin Panel</Link>

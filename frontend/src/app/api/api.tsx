@@ -59,6 +59,7 @@ export const fetchUser = async (user: User) => {
           gemeente
           straat
           huisNr
+          lid
           role{
             data{
               attributes{
@@ -93,6 +94,7 @@ export const fetchAllUsers = async () => {
           achternaam
           voornaam
           stamNr
+          lid
         }
       }
     }
@@ -109,30 +111,59 @@ export const fetchAllUsers = async () => {
 
 export const updateUser = async (user: UserUpdate) => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/graphql`;
-  const query = `
-  mutation{
-    updateUsersPermissionsUser(
-      id: ${user.id}, 
-      data:{
-        username: "${user.email}", email: "${user.email}", stamNr: "${user.stamNr}", voornaam: "${user.voornaam}", achternaam: "${user.achternaam}", telefoon: "${user.telefoon}", gsm: "${user.gsm}", land: "${user.land}", postcode: "${user.postcode}", gemeente: "${user.gemeente}", straat: "${user.straat}", huisNr: "${user.huisnummer}"}){
-      data{
-        id
-        attributes{
-          stamNr
-          email
-          voornaam
-          achternaam
-          telefoon
-          gsm
-          land
-          postcode
-          gemeente
-          straat
-          huisNr
-        }
-      }
-    }
-  }`;
+  let query: string;
+  console.log(user);
+  if (user.lid) {
+    query = `
+              mutation{
+                updateUsersPermissionsUser(
+                  id: ${user.id}, 
+                  data:{lid: ${user.lid}}){
+                  data{
+                    id
+                    attributes{
+                      stamNr
+                      email
+                      voornaam
+                      achternaam
+                      telefoon
+                      gsm
+                      land
+                      postcode
+                      gemeente
+                      straat
+                      huisNr
+                    }
+                  }
+                }
+              }`;
+  } else {
+    query = `
+              mutation{
+                updateUsersPermissionsUser(
+                  id: ${user.id}, 
+                  data:{
+                    username: "${user.email}", email: "${user.email}", stamNr: "${user.stamNr}", voornaam: "${user.voornaam}", achternaam: "${user.achternaam}", telefoon: "${user.telefoon}", gsm: "${user.gsm}", land: "${user.land}", postcode: "${user.postcode}", gemeente: "${user.gemeente}", straat: "${user.straat}", huisNr: "${user.huisnummer}"}){
+                  data{
+                    id
+                    attributes{
+                      stamNr
+                      email
+                      voornaam
+                      achternaam
+                      telefoon
+                      gsm
+                      land
+                      postcode
+                      gemeente
+                      straat
+                      huisNr
+                    }
+                  }
+                }
+              }`;
+  }
+
   try {
     const response = await axios.post(url, { query });
     return response.data.data.updateUsersPermissionsUser.data;
