@@ -8,7 +8,7 @@ export default async function Navbar() {
   let isAdmin = false;
   if (session) {
     const activeUser = await fetchUser(session.id);
-    if (activeUser?.attributes.role?.data.attributes.name == "admin") {
+    if (activeUser?.attributes && activeUser?.attributes.role?.data.attributes.name == "admin") {
       isAdmin = true;
     }
   }
@@ -30,9 +30,9 @@ export default async function Navbar() {
             Bestellingen bekijken
           </Link>
         </li>
-        <li>
-          <Link href={`/user/${session.id}`}>Gebruiker aanpassen</Link>
-        </li>
+          <li>
+            <Link href={session ? `/user/${session.id}` : "/user"}>Gebruiker aanpassen</Link>
+          </li>
         {isAdmin && (
           <li>
             <Link href="/admin">Admin Panel</Link>

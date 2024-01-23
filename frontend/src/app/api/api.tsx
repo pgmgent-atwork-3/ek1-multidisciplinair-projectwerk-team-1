@@ -38,11 +38,11 @@ export async function saveInoxRings(rings: Rings): Promise<void> {
   );
 }
 
-export const fetchUser = async (user: User) => {
+export const fetchUser = async (id: String) => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/graphql`;
   const query = `
   query {
-    usersPermissionsUser (id: "${user}") {
+    usersPermissionsUser (id: "${id}") {
       data {
         id
         attributes {
