@@ -16,16 +16,13 @@ const bestelPage = async ({ params }: { params: { id: number } }) => {
   const inoxRing = await loadInoxRings();
 
   return (
-    <div>
-      <BestelForm 
-      collorRing={collorRings}
-      inoxRing={inoxRing}
-      user={params.id}
-      betaling={true}
+    <div className="container lg m-auto my-4">
+      <BestelForm
+        collorRing={collorRings}
+        inoxRing={inoxRing}
+        user={params.id}
+        betaling={true}
       />
-     
-
-      
     </div>
   );
 };

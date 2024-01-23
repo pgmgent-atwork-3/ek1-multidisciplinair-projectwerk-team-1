@@ -1,8 +1,4 @@
 import { fetchAllOrders } from "@/app/api/api";
-import MonthlyOrderView from "@/app/components/MothlyOrderView";
-import DeleteOrder from "@/app/components/buttons/DeleteOrder";
-import BetaalOrder from "@/app/components/buttons/BetaalOrder";
-import DontBetaalOrder from "@/app/components/buttons/DontBetaalOrder";
 
 const orderoverzichtUserPage = async ({
   params,
@@ -10,7 +6,6 @@ const orderoverzichtUserPage = async ({
   params: { id: number };
 }) => {
   const orderData = await fetchAllOrders();
-  console.log("orderCheck", orderData);
   const userOrders = orderData.filter(
     (order) => order.attributes.user.data.id === params.id
   );

@@ -256,8 +256,8 @@ const BestelForm = (data) => {
         <h2>User heeft betaald</h2>
       )}
       {selectedJaar == "" && (
-        <div>
-          <div className="flex items-center justify-center h-80">
+        <div className="h-80">
+          <div className="flex items-center justify-center">
             {betaald === "admin" && (
               <div>
                 <button
@@ -275,17 +275,16 @@ const BestelForm = (data) => {
               </div>
             )}
           </div>
-          {((betaald == true ||
-            betaald == false || betaald == undefined) && (
-              <div className="flex items-center justify-center">
-                <button
-                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                  onClick={setPage}
-                >
-                  Nieuwe bestelling
-                </button>
-              </div>
-            ))}
+          {(betaald == true || betaald == false || betaald == undefined) && (
+            <div className="flex items-center justify-center h-80">
+              <button
+                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                onClick={setPage}
+              >
+                Nieuwe bestelling
+              </button>
+            </div>
+          )}
         </div>
       )}
 
@@ -323,28 +322,63 @@ const BestelForm = (data) => {
         selectedJaar !== "extra" &&
         selectedJaar !== "" && (
           <div>
-            <h1>Verharde jaarkleur ringen</h1>
-            <h2>Min 10 stuks daarna 5 stuks oplopend</h2>
-            <select
-              name="ringSize"
-              onChange={(element) => handelSelect(element, "color")}
-              className="w-32 py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300 focus:border-blue-300"
-              value={selectedCollorSize}
-            >
-              <option className="text-gray-700" value="select">
-                Select
-              </option>
-              Maat
-              {collorRings.map((ring) => (
-                <option
-                  key={ring.id}
-                  className="text-gray-700"
-                  value={ring.size}
+            <h1 className="text-3xl font-bold flex justify-center mb-4">Kies uw ringen</h1>
+            <div className="flex flex-row justify-center">
+              <div className="flex flex-col grow max-w-xs items-center">
+                <div className="flex flex-col items-center mb-4">
+                  <h1 className="text-xl font-semibold">
+                    Verharde jaarkleur ringen
+                  </h1>
+                  <h2>Min 10 stuks daarna 5 stuks oplopend</h2>
+                </div>
+                <select
+                  name="ringSize"
+                  onChange={(element) => handelSelect(element, "color")}
+                  className="w-32 py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300 focus:border-blue-300"
+                  value={selectedCollorSize}
                 >
-                  {ring.size}
-                </option>
-              ))}
-            </select>
+                  <option className="text-gray-700" value="select">
+                    Select
+                  </option>
+                  Maat
+                  {collorRings.map((ring) => (
+                    <option
+                      key={ring.id}
+                      className="text-gray-700"
+                      value={ring.size}
+                    >
+                      {ring.size}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex flex-col grow max-w-sm items-center">
+                <div className="flex flex-col items-center mb-4">
+                  <h1 className=" text-xl font-semibold">RVS(INOX) ringen</h1>
+                  <h2>Mogelijk per stuk</h2>
+                </div>
+                <select
+                  name="ringSize"
+                  onChange={(element) => handelSelect(element, "inox")}
+                  className="w-32 py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300 focus:border-blue-300"
+                  value={selectedInoxSize}
+                >
+                  <option className="text-gray-700" value="select">
+                    Select
+                  </option>
+                  Maat
+                  {inoxRings.map((ring) => (
+                    <option
+                      key={ring.id}
+                      className="text-gray-700"
+                      value={ring.size}
+                    >
+                      {ring.size}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
             {collorRingsData.length !== 0 && (
               <div className="p-4 shadow-md rounded-lg bg-blue-100 mt-5 grid grid-cols-5 gap-4 ml-6 mr-6">
                 <p className="text-lg font-semibold">Maat</p>
@@ -387,30 +421,6 @@ const BestelForm = (data) => {
                   </form>
                 </>
               ))}
-
-            <h1>RVS(INOX) ringen</h1>
-            <h2>Mogelijk per stuk</h2>
-
-            <select
-              name="ringSize"
-              onChange={(element) => handelSelect(element, "inox")}
-              className="w-32 py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300 focus:border-blue-300"
-              value={selectedInoxSize}
-            >
-              <option className="text-gray-700" value="select">
-                Select
-              </option>
-              Maat
-              {inoxRings.map((ring) => (
-                <option
-                  key={ring.id}
-                  className="text-gray-700"
-                  value={ring.size}
-                >
-                  {ring.size}
-                </option>
-              ))}
-            </select>
 
             {inoxRingsData.length !== 0 && (
               <div className="p-4 shadow-md rounded-lg bg-blue-100 mt-5 grid grid-cols-5 gap-4 ml-6 mr-6">
@@ -457,8 +467,8 @@ const BestelForm = (data) => {
               ))}
 
             {bestelling.length !== 0 && (
-              <div>
-                <h3>In process</h3>
+              <div className="m-auto mt-10">
+                <h3 className="font-bold text-2xl flex justify-center">Gekozen ringen</h3>
                 <div className="p-4 shadow-md rounded-lg bg-blue-100 mt-5 grid grid-cols-5 gap-4 ml-6 mr-6">
                   <p className="text-lg font-semibold">Maat</p>
                   <p className="text-lg font-semibold">Aantal</p>
@@ -492,20 +502,21 @@ const BestelForm = (data) => {
                 ))}
             {bestelling.length !== 0 && (
               <div className="bg-blue-500 p-4 rounded-lg shadow-md mr-6 ml-6">
-                <p className="text-white text-lg font-bold">
-                  Total: Є{totalPrice}
+                <p className="text-white text-lg font-bold flex justify-end">
+                  Totaal: Є{totalPrice}
                 </p>
               </div>
             )}
-
-            {bestelling.length !== 0 && (
-              <button
-                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                onClick={handelSubmit}
-              >
-                submit
-              </button>
-            )}
+            <div className="mt-10 flex justify-end mr-6">
+              {bestelling.length !== 0 && (
+                <button
+                  className="bg-green-500 hover:bg-green-600 text-white text-xl font-bold py-3 px-6 rounded"
+                  onClick={handelSubmit}
+                >
+                  submit
+                </button>
+              )}
+            </div>
           </div>
         )}
     </div>
