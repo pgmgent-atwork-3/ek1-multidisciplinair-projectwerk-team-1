@@ -1,24 +1,19 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/authOptions";
 import { redirect } from "next/navigation";
-import  UserForm from "@/app/components/UserForm";
+import UserForm from "@/app/components/UserForm";
 import { fetchUser } from "@/app/api/api";
 
 const page = async ({ params }: { params: { id: number } }) => {
-    const session = await getServerSession(authOptions);
-  
-    if (!session) {
-      redirect(`/api/auth/signin?callbackUrl=/user/${params.id}`);
-    }
-    const user = await fetchUser(params.id);
-    console.log('test',user)
+  const session = await getServerSession(authOptions);
 
+  if (!session) {
+    redirect(`/api/auth/signin?callbackUrl=/user/${params.id}`);
+  }
+  const user = await fetchUser(params.id);
+  console.log("test", user);
 
-    return (
-        <UserForm 
-        user={user}
-        />
-    )
-}
+  return <UserForm user={user} />;
+};
 
 export default page;

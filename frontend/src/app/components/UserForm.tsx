@@ -130,7 +130,7 @@ const UserForm = ({ user }: { user: User | null }) => {
         }
       }
     }
-    window.location.href = "/api/auth/signin"
+    window.location.href = "/api/auth/signin";
   };
 
   const handleUpdateSubmit = async (e: React.FormEvent) => {
@@ -172,12 +172,12 @@ const UserForm = ({ user }: { user: User | null }) => {
       }
     }
     alert("Gebruiker is geupdate");
-    window.location.href = "/"
+    window.location.href = "/";
   };
 
   if (user) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen">
+      <div className="flex flex-col items-center mt-6">
         <h1 className="text-3xl font-semibold mb-4">Update</h1>
         <form className="w-full max-w-sm" onSubmit={handleUpdateSubmit}>
           {errors && <p className="text-red-500">{errors}</p>}
@@ -218,78 +218,84 @@ const UserForm = ({ user }: { user: User | null }) => {
             />
             {/*image*/}
           </div>
-          <div className="mb-4 flex">
-            <input
-              type="text"
-              name="stamNr"
-              placeholder="StamNr"
-              required
-              value={formDataUpdate.stamNr}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
-            />
-            {/*image*/}
-          </div>
+          <div className="flex flex-row gap-2">
+            <div className="mb-4 flex">
+              <input
+                type="text"
+                name="stamNr"
+                placeholder="StamNr"
+                required
+                value={formDataUpdate.stamNr}
+                onChange={handleChange}
+                className="w-28 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+              />
+              {/*image*/}
+            </div>
 
-          <div className="mb-4 flex">
-            <input
-              type="text"
-              name="land"
-              required
-              placeholder="Land"
-              value={formDataUpdate.land}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
-            />
-            {/*image*/}
+            <div className="mb-4 flex-grow">
+              <input
+                type="text"
+                name="land"
+                required
+                placeholder="Land"
+                value={formDataUpdate.land}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+              />
+              {/*image*/}
+            </div>
           </div>
-          <div className="mb-4 flex">
-            <input
-              type="number"
-              name="postcode"
-              required
-              placeholder="Postcode"
-              value={formDataUpdate.postcode}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
-            />
-            {/*image*/}
+          <div className="flex flex-row gap-2">
+            <div className="mb-4 flex">
+              <input
+                type="number"
+                name="postcode"
+                required
+                placeholder="Postcode"
+                value={formDataUpdate.postcode}
+                onChange={handleChange}
+                className="w-28 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+              />
+              {/*image*/}
+            </div>
+            <div className="mb-4 flex-grow">
+              <input
+                type="text"
+                name="gemeente"
+                required
+                placeholder="Gemeente"
+                value={formDataUpdate.gemeente}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+              />
+              {/*image*/}
+            </div>
           </div>
-          <div className="mb-4 flex">
-            <input
-              type="text"
-              name="gemeente"
-              required
-              placeholder="Gemeente"
-              value={formDataUpdate.gemeente}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
-            />
-            {/*image*/}
-          </div>
-          <div className="mb-4 flex">
-            <input
-              type="text"
-              name="straat"
-              required
-              placeholder="Straat"
-              value={formDataUpdate.straat}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
-            />
-            {/*image*/}
-          </div>
-          <div className="mb-4 flex">
-            <input
-              type="number"
-              name="huisnummer"
-              required
-              placeholder="Huisnummer"
-              value={formDataUpdate.huisnummer}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
-            />
-            {/*image*/}
+          <div className="flex flex-row gap-2">
+            <div className="mb-4 flex-grow">
+              <input
+                type="text"
+                name="straat"
+                required
+                placeholder="Straat"
+                value={formDataUpdate.straat}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+              />
+              {/*image*/}
+            </div>
+            <div className="mb-4">
+              <input
+                type="number"
+                name="huisnummer"
+                required
+                placeholder="Huisnummer"
+                value={formDataUpdate.huisnummer}
+                onChange={handleChange}
+                className="w-28 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+              />
+              {/*image*/}
+            </div>
           </div>
           <div className="mb-4">
             <input
@@ -380,6 +386,7 @@ const UserForm = ({ user }: { user: User | null }) => {
           />
           {/*image*/}
         </div>
+        <div className="flex flex-row gap-2">
         <div className="mb-4 flex">
           <input
             type="text"
@@ -388,12 +395,12 @@ const UserForm = ({ user }: { user: User | null }) => {
             required
             value={formData.stamNr}
             onChange={handleChange}
-            className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+            className="w-28 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
           {/*image*/}
         </div>
 
-        <div className="mb-4 flex">
+        <div className="mb-4 flex-grow">
           <input
             type="text"
             name="land"
@@ -405,6 +412,8 @@ const UserForm = ({ user }: { user: User | null }) => {
           />
           {/*image*/}
         </div>
+        </div>
+        <div className="flex flex-row gap-2">
         <div className="mb-4 flex">
           <input
             type="number"
@@ -413,11 +422,11 @@ const UserForm = ({ user }: { user: User | null }) => {
             placeholder="Postcode"
             value={formData.postcode}
             onChange={handleChange}
-            className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+            className="w-28 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
           {/*image*/}
         </div>
-        <div className="mb-4 flex">
+        <div className="mb-4 flex-grow">
           <input
             type="text"
             name="gemeente"
@@ -429,7 +438,9 @@ const UserForm = ({ user }: { user: User | null }) => {
           />
           {/*image*/}
         </div>
-        <div className="mb-4 flex">
+        </div>
+        <div className="flex flex-row gap-2">
+        <div className="mb-4 flex-grow">
           <input
             type="text"
             name="straat"
@@ -449,9 +460,10 @@ const UserForm = ({ user }: { user: User | null }) => {
             placeholder="Huisnummer"
             value={formData.huisnummer}
             onChange={handleChange}
-            className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
+            className="w-28 px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500"
           />
           {/*image*/}
+        </div>
         </div>
         <div className="mb-4">
           <input
