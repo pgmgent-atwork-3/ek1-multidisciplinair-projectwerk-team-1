@@ -253,7 +253,7 @@ const BestelForm = (data) => {
   return (
     <div>
       {(betaald === true || betaald === false) && data.betaling == "admin" && (
-        <h2>User heeft betaald</h2>
+        <h2>Lid heeft betaald</h2>
       )}
       {selectedJaar == "" && (
         <div className="h-80">

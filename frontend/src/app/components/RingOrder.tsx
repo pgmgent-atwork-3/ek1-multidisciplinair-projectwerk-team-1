@@ -36,7 +36,7 @@ const RingOrder = ({rings, setRings}: {rings: Rings, setRings: any}) => {
     <div className="flex mb-4">
       <div className="mr-4 w-full">
         <label htmlFor="size" className="block mb-2 font-medium">
-          Size
+          Grootte
         </label>
         <select
           id="size"
@@ -45,7 +45,7 @@ const RingOrder = ({rings, setRings}: {rings: Rings, setRings: any}) => {
           onChange={changeRingPrice}
         >
             <option>
-              Choose ring size
+              Kies ring grootte
             </option>
           {rings.map((ring: Ring) => (
             <option key={ring.size} value={ring.size}>
@@ -56,13 +56,13 @@ const RingOrder = ({rings, setRings}: {rings: Rings, setRings: any}) => {
       </div>
       <div className="mr-4">
         <label htmlFor="price" className="block mb-2 font-medium">
-          Price per ring
+          Prijs per ring
         </label>
         <p className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{ringPrice}</p>
       </div>
       <div className="mr-4">
         <label htmlFor="amount" className="block mb-2 font-medium">
-          Amount
+          Aantal
         </label>
         <input
           type="number"
