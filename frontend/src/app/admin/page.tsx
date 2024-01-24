@@ -36,7 +36,7 @@ const Admin = async () => {
               href="/excel"
               className="bg-blue-700 hover:bg-blue-800 text-white text-center font-bold py-2 px-4 rounded"
             >
-              Lid wijzigen
+              Leden wijzigen met excel
             </a>
           </div>
         </div>

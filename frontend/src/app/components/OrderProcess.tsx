@@ -5,7 +5,14 @@ import { OrderRingCounter } from "./OrderRingCounter";
 import { PrintAdres } from "./buttons/PrintAdres";
 
 const OrderProcess = (orderData) => {
-  const adres = orderData.user.attributes.straat + " " + orderData.user.attributes.huisNr + " " + orderData.user.attributes.postcode + " " + orderData.user.attributes.gemeente;
+  const adres =
+    orderData.user.attributes.straat +
+    " " +
+    orderData.user.attributes.huisNr +
+    " " +
+    orderData.user.attributes.postcode +
+    " " +
+    orderData.user.attributes.gemeente;
   const data = orderData.orderData;
   const length =
     data.attributes.color_ring.length + data.attributes.inox_ring.length;
@@ -44,26 +51,29 @@ const OrderProcess = (orderData) => {
 
   return (
     <div>
-      <p className="flex justify-center font-bold">{data.attributes.year}</p>
-
-      <h2 className="flex justify-center">Totaal aantal per soort</h2>
+      <h1 className="text-4xl font-bold flex justify-center">
+        Bestelling id: {data.id}
+      </h1>
+      <h2 className="text-lg flex font-semibold justify-center mt-6">
+        Totaal aantal per soort
+      </h2>
       <div className="flex gap-8 justify-center">
         {colorCounter[0].length > 0 && (
           <div>
-            <h3>Kleur ringen</h3>
+            <h3 className="text-xl font-semibold">Kleur ringen</h3>
 
             <div className="flex gap-16">
               <div>
                 {colorCounter[0].map((size, index) => (
                   <p key={index}>
-                    <span className="font-bold">Size:</span> {size}
+                    <span className="font-bold">Grootte:</span> {size}
                   </p>
                 ))}
               </div>
               <div>
                 {colorCounter[1].map((amount, index) => (
                   <p key={index}>
-                    <span className="font-bold">Amount:</span> {amount}
+                    <span className="font-bold">Aantal:</span> {amount}
                   </p>
                 ))}
               </div>
@@ -72,19 +82,19 @@ const OrderProcess = (orderData) => {
         )}
         {inoxCounter[0].length > 0 && (
           <div>
-            <h3>Inox ringen</h3>
+            <h3 className="text-xl font-semibold">Inox ringen</h3>
             <div className="flex gap-16">
               <div>
                 {inoxCounter[0].map((size, index) => (
                   <p key={index}>
-                    <span className="font-bold">Size:</span> {size}
+                    <span className="font-bold">Grootte:</span> {size}
                   </p>
                 ))}
               </div>
               <div>
                 {inoxCounter[1].map((amount, index) => (
                   <p key={index}>
-                    <span className="font-bold">Amount:</span> {amount}
+                    <span className="font-bold">Aantal:</span> {amount}
                   </p>
                 ))}
               </div>
@@ -95,62 +105,63 @@ const OrderProcess = (orderData) => {
       <div className="flex justify-between">
         {/* Color Rings */}
         <div className="w-1/2 p-4 border rounded-lg bg-blue-100">
-          <p className="font-bold">Kleur ringen</p>
-          {data.attributes.color_ring.map((color, index) => (
-            <div key={color.id} className="mb-4">
-              <p>
-                <span className="font-bold">Amount:</span> {color.amount}
-              </p>
-              <p>
-                <span className="font-bold">Price:</span> {color.price}
-              </p>
-              <p>
-                <span className="font-bold">Size:</span> {color.size}
-              </p>
-              <input
-                onChange={() => handelChange(index, "color")}
-                type="checkbox"
-                name="checkbox"
-              />
-            </div>
-          ))}
+          <p className="text-lg font-bold">Kleur ringen</p>
+          <div className="flex flex-wrap gap-6">
+            {data.attributes.color_ring.map((color, index) => (
+              <div key={color.id} className="mb-4 w-32">
+                <p>
+                  <span className="font-bold">Aantal:</span> {color.amount}
+                </p>
+                <p>
+                  <span className="font-bold">Prijs:</span> {color.price}
+                </p>
+                <p>
+                  <span className="font-bold">Grootte:</span> {color.size}
+                </p>
+                <input
+                  onChange={() => handelChange(index, "color")}
+                  type="checkbox"
+                  name="checkbox"
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Inox Rings */}
         <div className="w-1/2 p-4 border rounded-lg bg-green-100">
-          <p className="font-bold">Inox ringen</p>
-          {data.attributes.inox_ring.map((inox, index) => (
-            <div key={inox.id} className="mb-4">
-              <p>
-                <span className="font-bold">Amount:</span> {inox.amount}
-              </p>
-              <p>
-                <span className="font-bold">Price:</span> {inox.price}
-              </p>
-              <p>
-                <span className="font-bold">Size:</span> {inox.size}
-              </p>
-              <input
-                onChange={() => handelChange(index, "inox")}
-                type="checkbox"
-                name="checkbox"
-              />
-            </div>
-          ))}
+          <p className="font-bold text-lg">Inox ringen</p>
+          <div className="flex flex-wrap gap-6">
+            {data.attributes.inox_ring.map((inox, index) => (
+              <div key={inox.id} className="mb-4 w-32">
+                <p>
+                  <span className="font-bold">Aantal:</span> {inox.amount}
+                </p>
+                <p>
+                  <span className="font-bold">Prijs:</span> {inox.price}
+                </p>
+                <p>
+                  <span className="font-bold">Grootte:</span> {inox.size}
+                </p>
+                <input
+                  onChange={() => handelChange(index, "inox")}
+                  type="checkbox"
+                  name="checkbox"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-
-      <PrintAdres 
-      addressText={adres} 
-      />
-
-      {/* Submit Button */}
-      <button
-        className="mt-4 p-2 bg-indigo-500 text-white rounded-md"
-        onClick={handelSubmit}
-      >
-        Submit
-      </button>
+      <div className="flex gap-6 my-6">
+        <PrintAdres addressText={adres} />
+        <button
+          className="bg-indigo-500 text-white font-bold py-2 px-4 rounded"
+          onClick={handelSubmit}
+        >
+          Bevestigen
+        </button>
+      </div>
     </div>
   );
 };

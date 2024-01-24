@@ -22,10 +22,10 @@ const MonthlyOrderView = ({ data }: { data: any }) => {
       order.attributes.year == currentDate.year
   );
   return (
-    <div>
-      <h2>Deze bestel maand</h2>
+    <div className="">
+      <h2 className="text-xl font-semibold ml-6">Deze maand</h2>
       <div className="p-4 shadow-md rounded-lg bg-blue-100 mt-5 grid grid-cols-5 gap-4 ml-6 mr-6">
-        <p className="text-lg font-semibold">Month</p>
+        <p className="text-lg font-semibold">Maand</p>
         <p className="text-lg font-semibold">Jaar</p>
         <p className="text-lg font-semibold">Prijs</p>
         <p className="text-lg font-semibold">Betaald</p>

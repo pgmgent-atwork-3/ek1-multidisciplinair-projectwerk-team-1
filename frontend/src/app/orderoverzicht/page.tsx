@@ -47,79 +47,72 @@ const OrderoverzichtPage = () => {
     event.preventDefault();
     setSearchTerm(event.target.value);
     const search = event.target.value;
-    if(searchTerm != ""){
+    if (searchTerm != "") {
       const results = data.filter((order) => {
         if (searchField === "naam") {
           const naam =
             order.attributes.user.data.attributes.voornaam +
             " " +
             order.attributes.user.data.attributes.achternaam;
-            console.log(naam);
+          console.log(naam);
           return naam.includes(search.toLowerCase());
         }
-  
+
         if (searchField === "stamNr") {
           const stamNr = order.attributes.user.data.attributes.stamNr;
           return stamNr.includes(search.toLowerCase());
         }
-  
+
         if (searchField === "email") {
           const email = order.attributes.user.data.attributes.email;
           console.log(email);
           return email.includes(search.toLowerCase());
         }
-  
+
         if (searchField === "month") {
           const month = order.attributes.month;
           return month.includes(search.toLowerCase());
         }
-  
+
         if (searchField === "year") {
           const year = order.attributes.year;
           return year.includes(search.toLowerCase());
         }
-  
       });
       setOrderData(results);
-    }
-    else{
+    } else {
       setOrderData(data);
     }
-
-   
   };
 
-
   return (
-    <div>
-      <h1>Orderoverzicht</h1>
-      <input
-        type="text"
-        className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-        value={searchTerm}
-        onChange={(event) => handleChange(event)}
-      />
-      <select onChange={(event)=> handleChangeSearch(event)}>
-        <option value={"naam"}>
-          Naam
-        </option>
-        <option value={"stamNr"}>
-          StamNr
-        </option>
-        <option value={"email"}>
-          Email
-        </option>
-        <option value={"month"}>
-          Maand
-        </option>
-        <option value={"year"}>
-          Jaar
-        </option>
-        <option value={"nietBetaald"}>
-          Niet betaald
-        </option>
-      </select>
-      <h2>Geschiedenis</h2>
+    <div className="container lg m-auto mt-6">
+      <h1 className="text-4xl font-bold flex justify-center">
+        Besteloverzicht
+      </h1>
+      <div className="flex gap-6 items-baseline">
+        <h2 className="text-xl font-semibold ml-6 mt-6">Geschiedenis</h2>
+        <div className="flex gap-6 ">
+          <input
+            type="text"
+            placeholder="Filter door het overzicht"
+            className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none focus:border-blue-500"
+            value={searchTerm}
+            onChange={(event) => handleChange(event)}
+          />
+          <select 
+            onChange={(event) => handleChangeSearch(event)}
+            className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none focus:border-blue-500"
+          >
+            <option value={"naam"}>Naam</option>
+            <option value={"stamNr"}>StamNr</option>
+            <option value={"email"}>Email</option>
+            <option value={"month"}>Maand</option>
+            <option value={"year"}>Jaar</option>
+            <option value={"nietBetaald"}>Niet betaald</option>
+          </select>
+        </div>
+      </div>
       <div className="p-4 shadow-md rounded-lg bg-blue-100 mt-5 grid grid-cols-8 gap-4 ml-6 mr-6">
         <p className="text-lg font-semibold">StamNr</p>
         <p className="text-lg font-semibold">Month</p>

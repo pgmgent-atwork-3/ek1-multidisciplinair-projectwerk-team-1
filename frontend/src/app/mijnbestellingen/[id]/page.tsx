@@ -12,7 +12,7 @@ const orderoverzichtUserPage = async ({
 
   return (
     <div className="container lg m-auto mt-6">
-      <h1 className="text-3xl font-bold flex justify-center">Orderoverzicht</h1>
+      <h1 className="text-3xl font-bold flex justify-center">Bestel overzicht</h1>
       <div className="mt-6">
         <h2 className="text-xl font-semibold ml-6">Geschiedenis</h2>
         <div className="p-4 shadow-md rounded-lg bg-blue-100 mt-5 grid grid-cols-4 gap-4 ml-6 mr-6">

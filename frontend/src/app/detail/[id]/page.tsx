@@ -20,7 +20,7 @@ const page = async ({ params }: { params: { id: number } }) => {
   }
 
   return (
-    <div className="ml-32 mr-32 mt-8">
+    <div className="container lg mt-6 m-auto">
       <div className="bg-white p-8 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-4">
           Gegevens van {user.attributes.voornaam} {user.attributes.achternaam}
@@ -69,7 +69,7 @@ const page = async ({ params }: { params: { id: number } }) => {
           href={`/user/${user.id}`}
           className="bg-blue-500 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded mt-4 block"
         >
-          Wijzig
+          Wijzig gegevens
         </a>
       </div>
       <div>
@@ -77,7 +77,7 @@ const page = async ({ params }: { params: { id: number } }) => {
           className="bg-blue-500 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded mt-4 block"
           href={`/bestelling/${user.id}`}
         >
-          Bestelling toevoegen
+          Nieuwe bestelling voor lid maken
         </a>
       </div>
       <div>
@@ -85,7 +85,7 @@ const page = async ({ params }: { params: { id: number } }) => {
           className="bg-blue-500 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded mt-4 block"
           href={`/orderoverzicht/${user.id}`}
         >
-          Bestellingen bekijken
+          Bestellingen bekijken van lid
         </a>
       </div>
     </div>

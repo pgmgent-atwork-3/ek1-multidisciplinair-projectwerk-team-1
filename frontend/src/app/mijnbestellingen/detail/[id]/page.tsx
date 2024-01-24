@@ -12,7 +12,7 @@ const orderDetailUserPage = async ({ params }: { params: { id: number } }) => {
           {orderData.attributes.color_ring.length > 0 ? (
             orderData.attributes.color_ring.map((ring) => (
               <div key={ring.id} className="mb-4">
-                <h4 className="text-lg font-semibold">Grote</h4>
+                <h4 className="text-lg font-semibold">Grootte</h4>
                 <p className="text-base">{ring.size}</p>
                 <h4 className="text-lg font-semibold">Aantal</h4>
                 <p className="text-base">{ring.amount}</p>
@@ -25,7 +25,7 @@ const orderDetailUserPage = async ({ params }: { params: { id: number } }) => {
           {orderData.attributes.inox_ring.length > 0 ? (
             orderData.attributes.inox_ring.map((ring) => (
               <div key={ring.id} className="mb-4">
-                <h4 className="text-lg font-semibold">Grote</h4>
+                <h4 className="text-lg font-semibold">Grootte</h4>
                 <p className="text-base">{ring.size}</p>
                 <h4 className="text-lg font-semibold">Aantal</h4>
                 <p className="text-base">{ring.amount}</p>
