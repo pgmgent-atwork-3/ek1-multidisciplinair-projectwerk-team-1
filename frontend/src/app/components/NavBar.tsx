@@ -18,7 +18,7 @@ export default async function Navbar() {
       <ul className="flex justify-evenly text-2xl font-bold text-white">
         <li>
           <Link href={session ? `/bestelling/${session.id}` : "/bestelling "}>
-            Bestellen
+            Nieuwe bestelling
           </Link>
         </li>
         <li>
@@ -31,7 +31,7 @@ export default async function Navbar() {
           </Link>
         </li>
           <li>
-            <Link href={session ? `/user/${session.id}` : "/user"}>Gebruiker aanpassen</Link>
+            <Link href={session ? `/user/${session.id}` : "/user"}>Lid aanpassen</Link>
           </li>
         {isAdmin && (
           <li>
@@ -40,16 +40,16 @@ export default async function Navbar() {
         )}
         {session ? (
           <li>
-            <Link href="/api/auth/signout">Sign Out</Link>
+            <Link href="/api/auth/signout">Log uit</Link>
           </li>
         ) : (
           <li>
-            <Link href="/api/auth/signin">Sign In</Link>
+            <Link href="/api/auth/signin">Log In</Link>
           </li>
         )}
         {!session && (
           <li>
-            <Link href="/register">Register</Link>
+            <Link href="/register">Registreren</Link>
           </li>
         )}
       </ul>
