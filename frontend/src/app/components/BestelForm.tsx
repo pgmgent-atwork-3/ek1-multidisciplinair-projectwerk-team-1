@@ -261,13 +261,13 @@ const BestelForm = (data) => {
             {betaald === "admin" && (
               <div>
                 <button
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded ml-4"
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-lg ml-4"
                   onClick={() => setBetaald(true)}
                 >
                   Betaald
                 </button>
                 <button
-                  className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-4"
+                  className="bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-8 rounded-lg ml-4"
                   onClick={() => setBetaald(false)}
                 >
                   Niet betaald
@@ -278,7 +278,7 @@ const BestelForm = (data) => {
           {(betaald == true || betaald == false || betaald == undefined) && (
             <div className="flex items-center justify-center h-80">
               <button
-                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                className="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-lg"
                 onClick={setPage}
               >
                 Nieuwe bestelling
@@ -292,13 +292,13 @@ const BestelForm = (data) => {
         <div>
           <div className="flex items-center justify-center h-80">
             <button
-              className="bg-blue-500 text-white py-4 px-8 rounded-lg mr-4"
+              className="bg-blue-500 text-white font-bold py-4 px-8 rounded-lg mr-4"
               onClick={() => setSelectedJaar(currentDate.year)}
             >
               Dit Jaar
             </button>
             <button
-              className="bg-blue-500 text-white py-4 px-8 rounded-lg"
+              className="bg-blue-500 text-white font-bold py-4 px-8 rounded-lg"
               onClick={() => setSelectedJaar(currentDate.year + 1)}
             >
               Volgend Jaar
@@ -310,7 +310,7 @@ const BestelForm = (data) => {
         <div>
           <div className="flex items-center justify-center h-80">
             <button
-              className="bg-blue-500 text-white py-4 px-8 rounded-lg"
+              className="bg-blue-500 text-white font-bold py-4 px-8 rounded-lg"
               onClick={() => setSelectedJaar(currentDate.year)}
             >
               Dit Jaar
