@@ -178,7 +178,7 @@ const UserForm = ({ user }: { user: User | null }) => {
   if (user) {
     return (
       <div className="flex flex-col items-center mt-6">
-        <h1 className="text-3xl font-semibold mb-4">Update</h1>
+        <h1 className="text-3xl font-bold mb-4">Update</h1>
         <form className="w-full max-w-sm" onSubmit={handleUpdateSubmit}>
           {errors && <p className="text-red-500">{errors}</p>}
           <div className="mb-4 flex">
