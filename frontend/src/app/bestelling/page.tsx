@@ -2,8 +2,7 @@ import React from "react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/authOptions";
 import { redirect } from "next/navigation";
-import { loadColorRings, loadInoxRings, fetchAllUsers } from "@/app/api/api";
-import BestelForm from "@/app/components/BestelForm";
+import { fetchAllUsers } from "@/app/api/api";
 import FindUser from "@/app/components/FindUser";
 
 const bestelPage = async () => {
@@ -14,11 +13,9 @@ const bestelPage = async () => {
   }
 
   const users = await fetchAllUsers();
-  const collorRings = await loadColorRings();
-  const inoxRing = await loadInoxRings();
 
   return (
-    <div>
+    <div className="container lg">
       <FindUser users={users} />  
     </div>
   );

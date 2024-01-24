@@ -16,13 +16,9 @@ const Admin = async () => {
   }
 
   return (
-    <>
-    
-      <div className="grid grid-cols-3 py-4">
-      
+    <div className="container lg m-auto">
+      <div className="flex justify-between py-4">
         <div className="flex ml-6 items-center">
-        
-          <h2 className="text-2xl mr-2">Verkoop:</h2>
           <div className="flex justify-around gap-4">
             <a
               href="/orderfinalizing"
@@ -34,24 +30,23 @@ const Admin = async () => {
               href="/orderoverzicht"
               className="bg-blue-700 hover:bg-blue-800 text-white text-center font-bold py-2 px-4 rounded"
             >
-              Order geschiedenis
+              Bestel geschiedenis
             </a>
-          </div>
-        </div>
-        <a
+            <a
               href="/excel"
               className="bg-blue-700 hover:bg-blue-800 text-white text-center font-bold py-2 px-4 rounded"
             >
-              Lid update
+              Lid wijzigen
             </a>
+          </div>
+        </div>
         <div className="flex justify-end mr-6 items-center">
-          <h2 className="text-2xl mr-2">Aanpasbare waarden:</h2>
           <div className="flex justify-around gap-4">
             <a
               href="/admin/rings"
               className="bg-slate-500 hover:bg-slate-600 text-white text-center font-bold py-2 px-4 rounded"
             >
-              Ringen
+              Ringmaten Aanpassen
             </a>
             <a
               href="/admin/year-colors"
@@ -63,7 +58,7 @@ const Admin = async () => {
         </div>
       </div>
       <UserFilter />
-    </>
+    </div>
   );
 };
 export default Admin;

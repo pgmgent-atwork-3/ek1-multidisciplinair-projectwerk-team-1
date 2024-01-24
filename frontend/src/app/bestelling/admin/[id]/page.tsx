@@ -16,7 +16,7 @@ const bestelPage = async ({ params }: { params: { id: number } }) => {
   const inoxRing = await loadInoxRings();
 
   return (
-    <div>
+    <div className="container lg">
       <BestelForm 
       collorRing={collorRings}
       inoxRing={inoxRing}

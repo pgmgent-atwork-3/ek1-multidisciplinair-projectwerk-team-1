@@ -45,18 +45,18 @@ const UserFilter = () => {
 
   return (
     <>
-    <h1 className="text-4xl font-bold ml-6">Users</h1>
-      <div className="flex items-center justify-center w-4/5 mr-auto ml-auto">
+      <div className="flex w-1/2 mt-6">
+      <h1 className="text-4xl font-bold ml-6 mr-10">Leden</h1>
         <input
           type="text"
-          placeholder="Zoek in de users..."
+          placeholder="Zoek door de leden..."
           value={search}
           onChange={(e) => handelChange(e.target.value)}
           className="outline-none focus:outline-blue-500 border border-black rounded-md w-full px-2 py-1"
         />
       </div>
 
-      <div>
+      <div className="">
         <div className="p-4 shadow-md rounded-lg bg-blue-100 mt-5 grid grid-cols-7 gap-4 ml-6 mr-6">
           <p className="text-lg font-semibold">Stamnummer</p>
           <p className="text-lg font-semibold">Voornaam</p>
@@ -64,7 +64,7 @@ const UserFilter = () => {
           <p className="text-lg font-semibold">Email</p>
           <p className="text-lg font-semibold">Bekijk</p>
           <p className="text-lg font-semibold">Wijzig</p>
-          <p className="text-lg font-semibold">Verwijder</p>
+          <p className="text-lg font-semibold">Verwijderen</p>
         </div>
         {users.map((user: any, index: number) => (
           <div
