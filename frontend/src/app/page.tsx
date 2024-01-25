@@ -16,7 +16,7 @@ export default async function Home() {
       />
       <header className="bg-blue-500 text-white p-4 w-full text-center z-10">
         <h1 className="text-4xl font-bold">Welkom</h1>
-        <p>Dit is een site om ringen te kopen voor je vogels</p>
+        <p>Dit is een site om ringen te kopen voor je vogels.</p>
       </header>
 
       <section className="mb-8 mt-80">
@@ -25,7 +25,7 @@ export default async function Home() {
             href={`/bestelling/${session?.id}`}
             className="bg-green-500 text-white py-2 px-4 rounded z-10"
           >
-            Bestellen
+            Nieuwe bestelling
           </a>
           <a
             href={`/mijnbestellingen/${session?.id}`}
