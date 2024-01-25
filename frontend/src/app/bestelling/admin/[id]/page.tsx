@@ -9,7 +9,7 @@ const bestelPage = async ({ params }: { params: { id: number } }) => {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    redirect(`/api/auth/signin?callbackUrl=/user/${params.id}`);
+    redirect(`/api/auth/signin?callbackUrl=/`);
   }
 
   const collorRings = await loadColorRings();

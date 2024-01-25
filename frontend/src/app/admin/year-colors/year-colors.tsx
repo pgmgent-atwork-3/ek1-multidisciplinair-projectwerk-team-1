@@ -24,7 +24,7 @@ const YearColors = () => {
 
   useEffect(() => {
     if (data) {
-      setYearColors(data.yearColors.data);
+      setYearColors(data.yearColors?.data);
     }
   }, [data]);
 

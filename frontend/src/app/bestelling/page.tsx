@@ -9,7 +9,7 @@ const bestelPage = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    redirect(`/api/auth/signin?callbackUrl=/user/`);
+    redirect(`/api/auth/signin?callbackUrl=/`);
   }
 
   const users = await fetchAllUsers();

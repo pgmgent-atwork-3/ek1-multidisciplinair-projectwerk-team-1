@@ -1,18 +1,35 @@
 import { fetchAllOrders } from "@/app/api/api";
+import { getServerSession } from "next-auth/next";
+import { redirect } from "next/navigation";
+import { authOptions } from "@/lib/authOptions";
 
 const orderoverzichtUserPage = async ({
   params,
 }: {
   params: { id: number };
 }) => {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect(`/api/auth/signin?callbackUrl=/`);
+  }
+
   const orderData = await fetchAllOrders();
+  if(!orderData){
+    return (
+      <>Error bij het ophalen van de data!</>
+    )
+  }
   const userOrders = orderData.filter(
     (order) => order.attributes.user.data.id === params.id
   );
+  console.log(userOrders)
 
   return (
     <div className="container lg m-auto mt-6">
-      <h1 className="text-3xl font-bold flex justify-center">Bestel overzicht</h1>
+      <h1 className="text-3xl font-bold flex justify-center">
+        Bestel overzicht
+      </h1>
       <div className="mt-6">
         <h2 className="text-xl font-semibold ml-6">Geschiedenis</h2>
         <div className="p-4 shadow-md rounded-lg bg-blue-100 mt-5 grid grid-cols-4 gap-4 ml-6 mr-6">
