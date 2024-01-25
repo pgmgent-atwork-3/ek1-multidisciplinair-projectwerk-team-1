@@ -15,9 +15,15 @@ const orderoverzichtUserPage = async ({
   }
 
   const orderData = await fetchAllOrders();
+  if(!orderData){
+    return (
+      <>Error bij het ophalen van de data!</>
+    )
+  }
   const userOrders = orderData.filter(
     (order) => order.attributes.user.data.id === params.id
   );
+  console.log(userOrders)
 
   return (
     <div className="container lg m-auto mt-6">

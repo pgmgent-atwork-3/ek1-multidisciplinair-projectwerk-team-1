@@ -86,7 +86,7 @@ export const fetchAllUsers = async () => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/graphql`;
   const query = `
   query {
-    usersPermissionsUsers {
+    usersPermissionsUsers (pagination: { limit : 100 }) {
       data {
         id
         attributes {
@@ -253,7 +253,7 @@ export const fetchAllOrders = async () => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/graphql`;
   const query = `
   query {
-    orders {
+    orders(pagination: { limit : 100 }) {
       data {
         id
         attributes {
