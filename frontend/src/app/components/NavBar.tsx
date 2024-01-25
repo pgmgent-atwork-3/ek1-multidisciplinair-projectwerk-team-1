@@ -8,7 +8,10 @@ export default async function Navbar() {
   let isAdmin = false;
   if (session) {
     const activeUser = await fetchUser(session.id);
-    if (activeUser?.attributes && activeUser?.attributes.role?.data.attributes.name == "admin") {
+    if (
+      activeUser?.attributes &&
+      activeUser?.attributes.role?.data.attributes.name == "admin"
+    ) {
       isAdmin = true;
     }
   }
@@ -17,22 +20,39 @@ export default async function Navbar() {
     <nav className="bg-gradient-to-r from-blue-900 via-indigo-800 to-violet-700 p-4">
       <ul className="flex justify-evenly text-2xl font-bold text-white">
         <li>
-          <Link href={session ? `/bestelling/${session.id}` : "/bestelling "}>
-            Nieuwe bestelling
-          </Link>
-        </li>
-        <li>
           <Link
-            href={
-              session ? `/mijnbestellingen/${session.id}` : "/mijnbestellingen"
-            }
-          >
-            Bestellingen bekijken
+            href="/">
+              Home
           </Link>
         </li>
-          <li>
-            <Link href={session ? `/user/${session.id}` : "/user"}>Lid aanpassen</Link>
-          </li>
+        {session && (
+          <>
+            <li>
+              <Link
+                href={session ? `/bestelling/${session.id}` : "/bestelling "}
+              >
+                Nieuwe bestelling
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={
+                  session
+                    ? `/mijnbestellingen/${session.id}`
+                    : "/mijnbestellingen"
+                }
+              >
+                Bestellingen bekijken
+              </Link>
+            </li>
+            <li>
+              <Link href={session ? `/user/${session.id}` : "/user"}>
+                Lid aanpassen
+              </Link>
+            </li>
+          </>
+        )}
+
         {isAdmin && (
           <li>
             <Link href="/admin">Admin Panel</Link>
