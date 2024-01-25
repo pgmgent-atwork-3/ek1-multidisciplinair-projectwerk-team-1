@@ -13,7 +13,11 @@ const page = async ({ params }: { params: { id: number } }) => {
   const user = await fetchUser(params.id);
   console.log("test", user);
 
-  return <UserForm user={user} />;
+  return (
+    <div className="container lg m-auto">
+      <UserForm user={user} />
+    </div>
+  );
 };
 
 export default page;
