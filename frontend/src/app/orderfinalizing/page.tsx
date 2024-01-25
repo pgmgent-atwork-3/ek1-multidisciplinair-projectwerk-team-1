@@ -6,7 +6,7 @@ const orderFinalizingPage = async () => {
   const orderToProcess = orderData.filter((order) => order.attributes.paid === true && order.attributes.processed === false)
 
   return (
-    <div className="container lg m-auto mt-6">
+    <div className="container lg m-auto my-6">
       <OrderFinalizing data={orderToProcess} />
     </div>
   );

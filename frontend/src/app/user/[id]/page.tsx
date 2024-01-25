@@ -13,11 +13,10 @@ const page = async ({ params }: { params: { id: number } }) => {
   const user = await fetchUser(params.id);
   console.log("test", user);
 
-  return ( 
-    <div className="flex justify-center">
+  return (
+    <div className="container lg m-auto">
       <UserForm user={user} />
     </div>
-  
   );
 };
 

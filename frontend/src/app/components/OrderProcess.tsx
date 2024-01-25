@@ -22,7 +22,6 @@ const OrderProcess = (orderData) => {
   const dataCounter = OrderRingCounter(orderData.orderUser);
   const inoxCounter = dataCounter.inoxOrder;
   const colorCounter = dataCounter.colorOrder;
-  console.log("colorCounter", colorCounter);
   const handelChange = (index, type) => {
     const checkBox = [...checkboxes];
     const lenght = data.attributes.color_ring.length + index;

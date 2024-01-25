@@ -86,7 +86,7 @@ const OrderoverzichtPage = () => {
   };
 
   return (
-    <div className="container lg m-auto mt-6">
+    <div className="container lg m-auto my-6">
       <h1 className="text-4xl font-bold flex justify-center">
         Besteloverzicht
       </h1>
