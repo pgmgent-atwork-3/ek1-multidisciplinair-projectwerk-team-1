@@ -4,7 +4,7 @@ const orderDetailUserPage = async ({ params }: { params: { id: number } }) => {
   const orderData = await fetchOrderById(params.id);
 
   return (
-    <div className="flex justify-center mt-6">
+    <div className="flex justify-center my-6">
       <div className="bg-white p-8 rounded shadow-md max-w-md w-full">
         <h1 className="text-2xl font-bold mb-4">Order Detail</h1>
         <div>
