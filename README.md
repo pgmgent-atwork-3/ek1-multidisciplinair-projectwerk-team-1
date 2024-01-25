@@ -23,7 +23,7 @@ when you clone the project you need to install the dependencies for the frontend
 
 from the root folder run the following commands to install the dependencies for the frontend:
 ```bash
-git clone https://github.com/username/project.git
+git clone 
 cd project/frontend
 npm install
 ```
